@@ -159,3 +159,27 @@ export interface WorkspaceChangedEvent extends BrowserEventBase {
 }
 
 export type BrowserEvent = WorkspaceChangedEvent;
+
+// Workspace API Types
+export interface WorkspaceInfo {
+  id: string;
+  name: string;
+  icon: string | null;
+  userContextId: number;
+  isDefault: boolean;
+  isSelected: boolean;
+}
+
+export interface WorkspaceListResponse {
+  workspaces: WorkspaceInfo[];
+  currentId: string | null;
+}
+
+export interface CurrentWorkspaceResponse {
+  workspaceId: string | null;
+}
+
+export interface SwitchWorkspaceResponse {
+  success: boolean;
+  workspaceId: string | null;
+}

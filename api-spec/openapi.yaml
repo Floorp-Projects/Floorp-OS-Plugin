@@ -145,6 +145,98 @@ paths:
                 example: |
                   data: {"type":"workspace-changed","timestamp":1625097600000,"data":{"workspaceId":"ws-123"}}
 
+  # Workspace Endpoints
+  /workspaces:
+    get:
+      summary: List all workspaces
+      operationId: listWorkspaces
+      description: Returns a list of all workspaces with their metadata and the current workspace ID.
+      responses:
+        "200":
+          description: List of workspaces
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkspaceListResponse"
+
+  /workspaces/current:
+    get:
+      summary: Get current workspace ID
+      operationId: getCurrentWorkspace
+      description: Returns the ID of the currently selected workspace.
+      responses:
+        "200":
+          description: Current workspace ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CurrentWorkspaceResponse"
+
+  /workspaces/next:
+    post:
+      summary: Switch to next workspace
+      operationId: switchToNextWorkspace
+      description: Switches to the next workspace in the order.
+      responses:
+        "200":
+          description: Successfully switched to next workspace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SwitchWorkspaceResponse"
+        "500":
+          description: Failed to switch workspace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /workspaces/previous:
+    post:
+      summary: Switch to previous workspace
+      operationId: switchToPreviousWorkspace
+      description: Switches to the previous workspace in the order.
+      responses:
+        "200":
+          description: Successfully switched to previous workspace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SwitchWorkspaceResponse"
+        "500":
+          description: Failed to switch workspace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /workspaces/{workspaceId}/switch:
+    post:
+      summary: Switch to specific workspace
+      operationId: switchToWorkspace
+      description: Switches to the workspace with the specified ID.
+      parameters:
+        - name: workspaceId
+          in: path
+          required: true
+          description: The UUID of the workspace to switch to
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Successfully switched to workspace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SwitchWorkspaceResponse"
+        "404":
+          description: Workspace not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
   # Web Scraper Endpoints
   /scraper/instances:
     post:
@@ -2111,3 +2203,76 @@ components:
         timeout:
           type: integer
           default: 5000
+
+    # Workspace Schemas
+    WorkspaceInfo:
+      type: object
+      description: Information about a single workspace
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the workspace
+        name:
+          type: string
+          description: Display name of the workspace
+        icon:
+          type: string
+          nullable: true
+          description: Icon identifier for the workspace
+        userContextId:
+          type: integer
+          description: Container/user context ID associated with the workspace
+        isDefault:
+          type: boolean
+          description: Whether this is the default workspace
+        isSelected:
+          type: boolean
+          description: Whether this workspace is currently selected
+      required:
+        - id
+        - name
+        - userContextId
+        - isDefault
+        - isSelected
+
+    WorkspaceListResponse:
+      type: object
+      description: Response containing list of workspaces
+      properties:
+        workspaces:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkspaceInfo"
+        currentId:
+          type: string
+          format: uuid
+          nullable: true
+          description: ID of the currently selected workspace
+      required:
+        - workspaces
+
+    CurrentWorkspaceResponse:
+      type: object
+      description: Response containing current workspace ID
+      properties:
+        workspaceId:
+          type: string
+          format: uuid
+          nullable: true
+          description: ID of the currently selected workspace
+
+    SwitchWorkspaceResponse:
+      type: object
+      description: Response after switching workspace
+      properties:
+        success:
+          type: boolean
+          description: Whether the switch was successful
+        workspaceId:
+          type: string
+          format: uuid
+          nullable: true
+          description: ID of the workspace after the switch
+      required:
+        - success
