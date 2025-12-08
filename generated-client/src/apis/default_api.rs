@@ -204,6 +204,13 @@ pub enum GetBrowserTabsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`get_current_workspace`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetCurrentWorkspaceError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`get_health`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -414,6 +421,13 @@ pub enum ListBrowserTabsError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`list_workspaces`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ListWorkspacesError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`navigate_scraper_instance`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -531,6 +545,30 @@ pub enum SubmitTabFormError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum SubscribeBrowserEventsError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`switch_to_next_workspace`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SwitchToNextWorkspaceError {
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`switch_to_previous_workspace`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SwitchToPreviousWorkspaceError {
+    Status500(models::ErrorResponse),
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`switch_to_workspace`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SwitchToWorkspaceError {
+    Status404(models::ErrorResponse),
     UnknownValue(serde_json::Value),
 }
 
@@ -1703,6 +1741,44 @@ pub fn get_browser_tabs(configuration: &configuration::Configuration, ) -> Resul
     } else {
         let content = resp.text()?;
         let entity: Option<GetBrowserTabsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Returns the ID of the currently selected workspace.
+pub fn get_current_workspace(configuration: &configuration::Configuration, ) -> Result<models::CurrentWorkspaceResponse, Error<GetCurrentWorkspaceError>> {
+
+    let uri_str = format!("{}/workspaces/current", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req)?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text()?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CurrentWorkspaceResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CurrentWorkspaceResponse`")))),
+        }
+    } else {
+        let content = resp.text()?;
+        let entity: Option<GetCurrentWorkspaceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
@@ -2915,6 +2991,44 @@ pub fn list_browser_tabs(configuration: &configuration::Configuration, ) -> Resu
     }
 }
 
+/// Returns a list of all workspaces with their metadata and the current workspace ID.
+pub fn list_workspaces(configuration: &configuration::Configuration, ) -> Result<models::WorkspaceListResponse, Error<ListWorkspacesError>> {
+
+    let uri_str = format!("{}/workspaces", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req)?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text()?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WorkspaceListResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WorkspaceListResponse`")))),
+        }
+    } else {
+        let content = resp.text()?;
+        let entity: Option<ListWorkspacesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
 pub fn navigate_scraper_instance(configuration: &configuration::Configuration, id: &str, navigate_request: models::NavigateRequest) -> Result<models::OkResponse, Error<NavigateScraperInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
@@ -3601,6 +3715,122 @@ pub fn subscribe_browser_events(configuration: &configuration::Configuration, ) 
     } else {
         let content = resp.text()?;
         let entity: Option<SubscribeBrowserEventsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Switches to the next workspace in the order.
+pub fn switch_to_next_workspace(configuration: &configuration::Configuration, ) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToNextWorkspaceError>> {
+
+    let uri_str = format!("{}/workspaces/next", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req)?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text()?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SwitchWorkspaceResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SwitchWorkspaceResponse`")))),
+        }
+    } else {
+        let content = resp.text()?;
+        let entity: Option<SwitchToNextWorkspaceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Switches to the previous workspace in the order.
+pub fn switch_to_previous_workspace(configuration: &configuration::Configuration, ) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToPreviousWorkspaceError>> {
+
+    let uri_str = format!("{}/workspaces/previous", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req)?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text()?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SwitchWorkspaceResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SwitchWorkspaceResponse`")))),
+        }
+    } else {
+        let content = resp.text()?;
+        let entity: Option<SwitchToPreviousWorkspaceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
+
+/// Switches to the workspace with the specified ID.
+pub fn switch_to_workspace(configuration: &configuration::Configuration, workspace_id: &str) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToWorkspaceError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_workspace_id = workspace_id;
+
+    let uri_str = format!("{}/workspaces/{workspaceId}/switch", configuration.base_path, workspaceId=crate::apis::urlencode(p_path_workspace_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req)?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text()?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SwitchWorkspaceResponse`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SwitchWorkspaceResponse`")))),
+        }
+    } else {
+        let content = resp.text()?;
+        let entity: Option<SwitchToWorkspaceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

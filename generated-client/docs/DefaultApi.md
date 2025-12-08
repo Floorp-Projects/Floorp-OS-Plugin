@@ -31,6 +31,7 @@ Method | HTTP request | Description
 [**get_browser_downloads**](DefaultApi.md#get_browser_downloads) | **GET** /browser/downloads | Get recent browser downloads
 [**get_browser_history**](DefaultApi.md#get_browser_history) | **GET** /browser/history | Get recent browser history
 [**get_browser_tabs**](DefaultApi.md#get_browser_tabs) | **GET** /browser/tabs | Get recent browser tabs
+[**get_current_workspace**](DefaultApi.md#get_current_workspace) | **GET** /workspaces/current | Get current workspace ID
 [**get_health**](DefaultApi.md#get_health) | **GET** /health | Health check endpoint
 [**get_scraper_attribute**](DefaultApi.md#get_scraper_attribute) | **GET** /scraper/instances/{id}/attribute | Get element attribute
 [**get_scraper_cookies**](DefaultApi.md#get_scraper_cookies) | **GET** /scraper/instances/{id}/cookies | Get cookies
@@ -61,6 +62,7 @@ Method | HTTP request | Description
 [**is_tab_enabled**](DefaultApi.md#is_tab_enabled) | **GET** /tabs/instances/{id}/isEnabled | Check if element is enabled
 [**is_tab_visible**](DefaultApi.md#is_tab_visible) | **GET** /tabs/instances/{id}/isVisible | Check if element is visible
 [**list_browser_tabs**](DefaultApi.md#list_browser_tabs) | **GET** /tabs/list | List all browser tabs
+[**list_workspaces**](DefaultApi.md#list_workspaces) | **GET** /workspaces | List all workspaces
 [**navigate_scraper_instance**](DefaultApi.md#navigate_scraper_instance) | **POST** /scraper/instances/{id}/navigate | Navigate scraper instance to URL
 [**navigate_tab_instance**](DefaultApi.md#navigate_tab_instance) | **POST** /tabs/instances/{id}/navigate | Navigate tab instance to URL
 [**right_click_scraper_element**](DefaultApi.md#right_click_scraper_element) | **POST** /scraper/instances/{id}/rightClick | Right click element
@@ -78,6 +80,9 @@ Method | HTTP request | Description
 [**submit_scraper_form**](DefaultApi.md#submit_scraper_form) | **POST** /scraper/instances/{id}/submit | Submit form in scraper instance
 [**submit_tab_form**](DefaultApi.md#submit_tab_form) | **POST** /tabs/instances/{id}/submit | Submit form in tab instance
 [**subscribe_browser_events**](DefaultApi.md#subscribe_browser_events) | **GET** /browser/events | Subscribe to browser events
+[**switch_to_next_workspace**](DefaultApi.md#switch_to_next_workspace) | **POST** /workspaces/next | Switch to next workspace
+[**switch_to_previous_workspace**](DefaultApi.md#switch_to_previous_workspace) | **POST** /workspaces/previous | Switch to previous workspace
+[**switch_to_workspace**](DefaultApi.md#switch_to_workspace) | **POST** /workspaces/{workspaceId}/switch | Switch to specific workspace
 [**take_scraper_element_screenshot**](DefaultApi.md#take_scraper_element_screenshot) | **GET** /scraper/instances/{id}/elementScreenshot | Take screenshot of specific element
 [**take_scraper_full_page_screenshot**](DefaultApi.md#take_scraper_full_page_screenshot) | **GET** /scraper/instances/{id}/fullPageScreenshot | Take full page screenshot
 [**take_scraper_region_screenshot**](DefaultApi.md#take_scraper_region_screenshot) | **POST** /scraper/instances/{id}/regionScreenshot | Take screenshot of specific region
@@ -843,6 +848,33 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**Vec<models::Tab>**](Tab.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## get_current_workspace
+
+> models::CurrentWorkspaceResponse get_current_workspace()
+Get current workspace ID
+
+Returns the ID of the currently selected workspace.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::CurrentWorkspaceResponse**](CurrentWorkspaceResponse.md)
 
 ### Authorization
 
@@ -1711,6 +1743,33 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## list_workspaces
+
+> models::WorkspaceListResponse list_workspaces()
+List all workspaces
+
+Returns a list of all workspaces with their metadata and the current workspace ID.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::WorkspaceListResponse**](WorkspaceListResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## navigate_scraper_instance
 
 > models::OkResponse navigate_scraper_instance(id, navigate_request)
@@ -2196,6 +2255,90 @@ This endpoint does not need any parameter.
 
 - **Content-Type**: Not defined
 - **Accept**: text/event-stream
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## switch_to_next_workspace
+
+> models::SwitchWorkspaceResponse switch_to_next_workspace()
+Switch to next workspace
+
+Switches to the next workspace in the order.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::SwitchWorkspaceResponse**](SwitchWorkspaceResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## switch_to_previous_workspace
+
+> models::SwitchWorkspaceResponse switch_to_previous_workspace()
+Switch to previous workspace
+
+Switches to the previous workspace in the order.
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**models::SwitchWorkspaceResponse**](SwitchWorkspaceResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## switch_to_workspace
+
+> models::SwitchWorkspaceResponse switch_to_workspace(workspace_id)
+Switch to specific workspace
+
+Switches to the workspace with the specified ID.
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**workspace_id** | **uuid::Uuid** | The UUID of the workspace to switch to | [required] |
+
+### Return type
+
+[**models::SwitchWorkspaceResponse**](SwitchWorkspaceResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

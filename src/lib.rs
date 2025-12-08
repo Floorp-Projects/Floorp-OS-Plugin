@@ -120,6 +120,12 @@ pub fn core_floorp_plugin_package() -> CorePluginPackage {
 			floorp_tab_dismiss_alert_plugin(),
 			floorp_tab_pdf_plugin(),
 			floorp_tab_wait_for_network_idle_plugin(),
+			// workspace plugins
+			floorp_list_workspaces_plugin(),
+			floorp_get_current_workspace_plugin(),
+			floorp_switch_to_next_workspace_plugin(),
+			floorp_switch_to_previous_workspace_plugin(),
+			floorp_switch_to_workspace_plugin(),
 		],
 	)
 }
@@ -228,6 +234,12 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
 		("tabDismissAlert", "Tab Dismiss Alert", "Dismiss alert in tab."),
 		("tabPdf", "Tab Save as PDF", "Save page as PDF in tab."),
 		("tabWaitForNetworkIdle", "Tab Wait for Network Idle", "Wait for network idle in tab."),
+		// Workspace functions
+		("listWorkspaces", "List Workspaces", "List all workspaces with metadata."),
+		("getCurrentWorkspace", "Get Current Workspace", "Get the current workspace ID."),
+		("switchToNextWorkspace", "Switch To Next Workspace", "Switch to the next workspace."),
+		("switchToPreviousWorkspace", "Switch To Previous Workspace", "Switch to the previous workspace."),
+		("switchToWorkspace", "Switch To Workspace", "Switch to a specific workspace by ID."),
 	]
 	.into_iter()
 	.map(|(suffix, name, desc)| floorp_plugin_function(suffix, name, desc)));
@@ -1451,6 +1463,55 @@ fn op_floorp_tab_wait_for_network_idle(
 	})
 }
 
+
+#[op2]
+#[string]
+fn op_floorp_list_workspaces() -> Result<String, JsErrorBox> {
+	run_blocking_json(move || {
+		let c = cfg(None);
+		openapi::apis::default_api::list_workspaces(&c)
+	})
+}
+
+#[op2]
+#[string]
+fn op_floorp_get_current_workspace() -> Result<String, JsErrorBox> {
+	run_blocking_json(move || {
+		let c = cfg(None);
+		openapi::apis::default_api::get_current_workspace(&c)
+	})
+}
+
+#[op2]
+#[string]
+fn op_floorp_switch_to_next_workspace() -> Result<String, JsErrorBox> {
+	run_blocking_json(move || {
+		let c = cfg(None);
+		openapi::apis::default_api::switch_to_next_workspace(&c)
+	})
+}
+
+#[op2]
+#[string]
+fn op_floorp_switch_to_previous_workspace() -> Result<String, JsErrorBox> {
+	run_blocking_json(move || {
+		let c = cfg(None);
+		openapi::apis::default_api::switch_to_previous_workspace(&c)
+	})
+}
+
+#[op2]
+#[string]
+fn op_floorp_switch_to_workspace(
+	#[string] workspace_id: String,
+) -> Result<String, JsErrorBox> {
+	run_blocking_json(move || {
+		let c = cfg(None);
+		openapi::apis::default_api::switch_to_workspace(&c, &workspace_id)
+	})
+}
+
+
 make_plugin!(floorp_attribute_plugin, op_floorp_attribute, "attribute", "Get Attribute", "Get element attribute.");
 make_plugin!(floorp_is_visible_plugin, op_floorp_is_visible, "isVisible", "Is Visible", "Check if element is visible.");
 make_plugin!(floorp_is_enabled_plugin, op_floorp_is_enabled, "isEnabled", "Is Enabled", "Check if element is enabled.");
@@ -1469,7 +1530,6 @@ make_plugin!(floorp_accept_alert_plugin, op_floorp_accept_alert, "acceptAlert", 
 make_plugin!(floorp_dismiss_alert_plugin, op_floorp_dismiss_alert, "dismissAlert", "Dismiss Alert", "Dismiss alert.");
 make_plugin!(floorp_pdf_plugin, op_floorp_pdf, "pdf", "Save as PDF", "Save page as PDF.");
 make_plugin!(floorp_wait_for_network_idle_plugin, op_floorp_wait_for_network_idle, "waitForNetworkIdle", "Wait for Network Idle", "Wait for network idle.");
-
 make_plugin!(floorp_tab_attribute_plugin, op_floorp_tab_attribute, "tabAttribute", "Tab Get Attribute", "Get element attribute in tab.");
 make_plugin!(floorp_tab_is_visible_plugin, op_floorp_tab_is_visible, "tabIsVisible", "Tab Is Visible", "Check if element is visible in tab.");
 make_plugin!(floorp_tab_is_enabled_plugin, op_floorp_tab_is_enabled, "tabIsEnabled", "Tab Is Enabled", "Check if element is enabled in tab.");
@@ -1488,3 +1548,8 @@ make_plugin!(floorp_tab_accept_alert_plugin, op_floorp_tab_accept_alert, "tabAcc
 make_plugin!(floorp_tab_dismiss_alert_plugin, op_floorp_tab_dismiss_alert, "tabDismissAlert", "Tab Dismiss Alert", "Dismiss alert in tab.");
 make_plugin!(floorp_tab_pdf_plugin, op_floorp_tab_pdf, "tabPdf", "Tab Save as PDF", "Save page as PDF in tab.");
 make_plugin!(floorp_tab_wait_for_network_idle_plugin, op_floorp_tab_wait_for_network_idle, "tabWaitForNetworkIdle", "Tab Wait for Network Idle", "Wait for network idle in tab.");
+make_plugin!(floorp_list_workspaces_plugin, op_floorp_list_workspaces, "listWorkspaces", "List Workspaces", "List all workspaces with metadata.");
+make_plugin!(floorp_get_current_workspace_plugin, op_floorp_get_current_workspace, "getCurrentWorkspace", "Get Current Workspace", "Get the current workspace ID.");
+make_plugin!(floorp_switch_to_next_workspace_plugin, op_floorp_switch_to_next_workspace, "switchToNextWorkspace", "Switch To Next Workspace", "Switch to the next workspace.");
+make_plugin!(floorp_switch_to_previous_workspace_plugin, op_floorp_switch_to_previous_workspace, "switchToPreviousWorkspace", "Switch To Previous Workspace", "Switch to the previous workspace.");
+make_plugin!(floorp_switch_to_workspace_plugin, op_floorp_switch_to_workspace, "switchToWorkspace", "Switch To Workspace", "Switch to a specific workspace by ID.");

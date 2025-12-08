@@ -284,6 +284,22 @@ function floorpTabWaitForNetworkIdle(id, timeoutMs) {
     timeoutMs?.toString(),
   );
 }
+function floorpListWorkspaces() {
+  return Deno.core.ops.op_floorp_list_workspaces();
+}
+function floorpGetCurrentWorkspace() {
+  return Deno.core.ops.op_floorp_get_current_workspace();
+}
+function floorpSwitchToNextWorkspace() {
+  return Deno.core.ops.op_floorp_switch_to_next_workspace();
+}
+function floorpSwitchToPreviousWorkspace() {
+  return Deno.core.ops.op_floorp_switch_to_previous_workspace();
+}
+function floorpSwitchToWorkspace(workspaceId) {
+  return Deno.core.ops.op_floorp_switch_to_workspace(workspaceId);
+}
+
 
 globalThis.floorp = {
   health: floorpHealth,
@@ -370,4 +386,10 @@ globalThis.floorp = {
   tabDismissAlert: floorpTabDismissAlert,
   tabPdf: floorpTabPdf,
   tabWaitForNetworkIdle: floorpTabWaitForNetworkIdle,
+  // Workspace functions
+  listWorkspaces: floorpListWorkspaces,
+  getCurrentWorkspace: floorpGetCurrentWorkspace,
+  switchToNextWorkspace: floorpSwitchToNextWorkspace,
+  switchToPreviousWorkspace: floorpSwitchToPreviousWorkspace,
+  switchToWorkspace: floorpSwitchToWorkspace,
 };
