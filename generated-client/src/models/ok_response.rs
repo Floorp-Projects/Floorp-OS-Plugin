@@ -13,12 +13,12 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OkResponse {
-    #[serde(rename = "ok")]
-    pub ok: bool,
+    #[serde(rename = "ok", default)]
+    pub ok: Option<bool>,
 }
 
 impl OkResponse {
-    pub fn new(ok: bool) -> OkResponse {
+    pub fn new(ok: Option<bool>) -> OkResponse {
         OkResponse { ok }
     }
 }
