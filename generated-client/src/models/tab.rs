@@ -15,7 +15,7 @@ use serde::{Deserialize, Serialize};
 pub struct Tab {
     /// Tab identifier
     #[serde(rename = "id")]
-    pub id: i32,
+    pub id: i64,
     /// Tab URL
     #[serde(rename = "url")]
     pub url: String,
@@ -31,7 +31,7 @@ pub struct Tab {
 }
 
 impl Tab {
-    pub fn new(id: i32, url: String, title: String, is_active: bool, is_pinned: bool) -> Tab {
+    pub fn new(id: i64, url: String, title: String, is_active: bool, is_pinned: bool) -> Tab {
         Tab {
             id,
             url,
