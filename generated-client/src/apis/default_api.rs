@@ -160,6 +160,27 @@ pub enum FillTabFormError {
     UnknownValue(serde_json::Value),
 }
 
+/// struct for typed errors of method [`set_tab_inner_html`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetTabInnerHtmlError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`set_tab_text_content`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum SetTabTextContentError {
+    UnknownValue(serde_json::Value),
+}
+
+/// struct for typed errors of method [`dispatch_tab_event`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DispatchTabEventError {
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`focus_scraper_element`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
