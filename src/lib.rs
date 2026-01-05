@@ -53,6 +53,9 @@ pub fn core_floorp_plugin_package() -> CorePluginPackage {
             floorp_tab_fullpage_screenshot_plugin(),
             floorp_tab_region_screenshot_plugin(),
             floorp_tab_fill_form_plugin(),
+            floorp_tab_set_inner_html_plugin(),
+            floorp_tab_set_text_content_plugin(),
+            floorp_tab_dispatch_event_plugin(),
             floorp_tab_element_value_plugin(),
             floorp_tab_submit_form_plugin(),
             floorp_tab_clear_input_plugin(),
@@ -990,6 +993,52 @@ fn op_floorp_tab_fill_form(
 
 #[op2]
 #[string]
+fn op_floorp_tab_set_inner_html(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] html: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::SetInnerHtmlRequest { selector, html };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::set_tab_inner_html(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_tab_set_text_content(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] text: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::SetTextContentRequest { selector, text };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::set_tab_text_content(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_tab_dispatch_event(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] event_type: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::DispatchEventRequest {
+        selector,
+        event_type,
+        options: None,
+    };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::dispatch_tab_event(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
 fn op_floorp_tab_element_value(
     #[string] id: String,
     #[string] selector: String,
@@ -1244,6 +1293,27 @@ make_plugin!(
     "tabFillForm",
     "Tab Fill Form",
     "Fill a form in tab."
+);
+make_plugin!(
+    floorp_tab_set_inner_html_plugin,
+    op_floorp_tab_set_inner_html,
+    "tabSetInnerHTML",
+    "Tab Set innerHTML",
+    "Set innerHTML of an element in tab (for contenteditable elements like Slack)."
+);
+make_plugin!(
+    floorp_tab_set_text_content_plugin,
+    op_floorp_tab_set_text_content,
+    "tabSetTextContent",
+    "Tab Set textContent",
+    "Set textContent of an element in tab (for contenteditable elements like Slack)."
+);
+make_plugin!(
+    floorp_tab_dispatch_event_plugin,
+    op_floorp_tab_dispatch_event,
+    "tabDispatchEvent",
+    "Tab Dispatch Event",
+    "Dispatch an event on an element in tab (for contenteditable elements)."
 );
 make_plugin!(
     floorp_tab_element_value_plugin,

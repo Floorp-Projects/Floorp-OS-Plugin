@@ -19,7 +19,7 @@ function floorpWaitForElement(id, selector, timeoutMs) {
   return Deno.core.ops.op_floorp_wait_for_element(
     id,
     selector,
-    timeoutMs?.toString(),
+    timeoutMs?.toString()
   );
 }
 function floorpClick(id, selector) {
@@ -67,13 +67,13 @@ function floorpRegionScreenshot(id, x, y, w, h) {
     x?.toString(),
     y?.toString(),
     w?.toString(),
-    h?.toString(),
+    h?.toString()
   );
 }
 function floorpCreateTab(url, inBackground) {
   return Deno.core.ops.op_floorp_create_tab_instance(
     url,
-    inBackground?.toString(),
+    inBackground?.toString()
   );
 }
 function floorpNavigateTab(id, url) {
@@ -101,7 +101,7 @@ function floorpTabWaitForElement(id, selector, timeoutMs) {
   return Deno.core.ops.op_floorp_tab_wait_for_element(
     id,
     selector,
-    timeoutMs?.toString(),
+    timeoutMs?.toString()
   );
 }
 function floorpTabClearInput(id, selector) {
@@ -119,11 +119,20 @@ function floorpTabRegionScreenshot(id, x, y, w, h) {
     x?.toString(),
     y?.toString(),
     w?.toString(),
-    h?.toString(),
+    h?.toString()
   );
 }
 function floorpTabFillForm(id, selector, value) {
   return Deno.core.ops.op_floorp_tab_fill_form(id, selector, value);
+}
+function floorpTabSetInnerHTML(id, selector, html) {
+  return Deno.core.ops.op_floorp_tab_set_inner_html(id, selector, html);
+}
+function floorpTabSetTextContent(id, selector, text) {
+  return Deno.core.ops.op_floorp_tab_set_text_content(id, selector, text);
+}
+function floorpTabDispatchEvent(id, selector, eventType) {
+  return Deno.core.ops.op_floorp_tab_dispatch_event(id, selector, eventType);
 }
 function floorpTabElementValue(id, selector) {
   return Deno.core.ops.op_floorp_tab_element_value(id, selector);
@@ -146,7 +155,7 @@ function floorpBrowserDownloads(limit) {
 function floorpBrowserContext(historyLimit, downloadLimit) {
   return Deno.core.ops.op_floorp_browser_context(
     historyLimit?.toString(),
-    downloadLimit?.toString(),
+    downloadLimit?.toString()
   );
 }
 function floorpAttachToTab(instanceId) {
@@ -219,7 +228,7 @@ function floorpPdf(id) {
 function floorpWaitForNetworkIdle(id, timeoutMs) {
   return Deno.core.ops.op_floorp_wait_for_network_idle(
     id,
-    timeoutMs?.toString(),
+    timeoutMs?.toString()
   );
 }
 
@@ -239,7 +248,7 @@ function floorpTabSetChecked(id, selector, checked) {
   return Deno.core.ops.op_floorp_tab_set_checked(
     id,
     selector,
-    checked?.toString(),
+    checked?.toString()
   );
 }
 function floorpTabHover(id, selector) {
@@ -281,7 +290,7 @@ function floorpTabPdf(id) {
 function floorpTabWaitForNetworkIdle(id, timeoutMs) {
   return Deno.core.ops.op_floorp_tab_wait_for_network_idle(
     id,
-    timeoutMs?.toString(),
+    timeoutMs?.toString()
   );
 }
 function floorpListWorkspaces() {
@@ -299,7 +308,6 @@ function floorpSwitchToPreviousWorkspace() {
 function floorpSwitchToWorkspace(workspaceId) {
   return Deno.core.ops.op_floorp_switch_to_workspace(workspaceId);
 }
-
 
 globalThis.floorp = {
   health: floorpHealth,
@@ -335,6 +343,9 @@ globalThis.floorp = {
   tabFullPageScreenshot: floorpTabFullPageScreenshot,
   tabRegionScreenshot: floorpTabRegionScreenshot,
   tabFillForm: floorpTabFillForm,
+  tabSetInnerHTML: floorpTabSetInnerHTML,
+  tabSetTextContent: floorpTabSetTextContent,
+  tabDispatchEvent: floorpTabDispatchEvent,
   tabElementValue: floorpTabElementValue,
   tabSubmitForm: floorpTabSubmitForm,
   tabClearInput: floorpTabClearInput,
