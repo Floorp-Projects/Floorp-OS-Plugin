@@ -42,9 +42,11 @@ pub fn core_floorp_plugin_package() -> CorePluginPackage {
             floorp_destroy_scraper_instance_plugin(),
             floorp_navigate_scraper_plugin(),
             floorp_scraper_html_plugin(),
+            floorp_get_elements_plugin(),
             // tab-specific plugins
             floorp_tab_html_plugin(),
             floorp_tab_screenshot_plugin(),
+            floorp_tab_get_elements_plugin(),
             floorp_tab_element_plugin(),
             floorp_tab_element_text_plugin(),
             floorp_tab_click_element_plugin(),
@@ -129,6 +131,13 @@ pub fn core_floorp_plugin_package() -> CorePluginPackage {
             floorp_switch_to_next_workspace_plugin(),
             floorp_switch_to_previous_workspace_plugin(),
             floorp_switch_to_workspace_plugin(),
+            // Input / Press Key / Upload File plugins
+            floorp_input_plugin(),
+            floorp_tab_input_plugin(),
+            floorp_press_key_plugin(),
+            floorp_tab_press_key_plugin(),
+            floorp_upload_file_plugin(),
+            floorp_tab_upload_file_plugin(),
         ],
     )
 }
@@ -184,9 +193,19 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
                 "Get current page HTML of scraper instance.",
             ),
             (
+                "getElements",
+                "Get Elements",
+                "Get matching elements from scraper.",
+            ),
+            (
                 "tabHtml",
                 "Tab HTML",
                 "Get current page HTML of tab instance.",
+            ),
+            (
+                "tabGetElements",
+                "Tab Get Elements",
+                "Get matching elements from tab.",
             ),
             (
                 "tabScreenshot",
@@ -444,6 +463,38 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
                 "tabWaitForNetworkIdle",
                 "Tab Wait for Network Idle",
                 "Wait for network idle in tab.",
+            ),
+            // Advanced input functions (scraper)
+            (
+                "input",
+                "Input",
+                "Type into an element.",
+            ),
+            (
+                "pressKey",
+                "Press Key",
+                "Press key or key combination.",
+            ),
+            (
+                "uploadFile",
+                "Upload File",
+                "Upload file via input[type=file].",
+            ),
+            // Advanced input functions (tab)
+            (
+                "tabInput",
+                "Tab Input",
+                "Type into an element in tab.",
+            ),
+            (
+                "tabPressKey",
+                "Tab Press Key",
+                "Press key or key combination in tab.",
+            ),
+            (
+                "tabUploadFile",
+                "Tab Upload File",
+                "Upload file via input[type=file] in tab.",
             ),
             // Workspace functions
             (
@@ -1530,6 +1581,32 @@ make_plugin!(
 
 #[op2]
 #[string]
+fn op_floorp_get_elements(
+    #[string] id: String,
+    #[string] selector: String,
+) -> Result<String, JsErrorBox> {
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::get_scraper_elements(&c, &id, &selector)
+            .map(|r| serde_json::json!({ "elements": r.elements }))
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_tab_get_elements(
+    #[string] id: String,
+    #[string] selector: String,
+) -> Result<String, JsErrorBox> {
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::get_tab_elements(&c, &id, &selector)
+            .map(|r| serde_json::json!({ "elements": r.elements }))
+    })
+}
+
+#[op2]
+#[string]
 fn op_floorp_attribute(
     #[string] id: String,
     #[string] selector: String,
@@ -2317,4 +2394,162 @@ make_plugin!(
     "switchToWorkspace",
     "Switch To Workspace",
     "Switch to a specific workspace by ID."
+);
+
+make_plugin!(
+    floorp_get_elements_plugin,
+    op_floorp_get_elements,
+    "getElements",
+    "Get Elements",
+    "Get all matching elements (outerHTML)."
+);
+
+make_plugin!(
+    floorp_tab_get_elements_plugin,
+    op_floorp_tab_get_elements,
+    "tabGetElements",
+    "Tab Get Elements",
+    "Get all matching elements in tab (outerHTML)."
+);
+
+// --- Input / Press Key / Upload File operations ---
+
+#[op2]
+#[string]
+fn op_floorp_input(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] value: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::InputRequest {
+        selector,
+        value,
+        typing_mode: None,
+        typing_delay_ms: None,
+    };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::input_scraper_element(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_tab_input(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] value: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::InputRequest {
+        selector,
+        value,
+        typing_mode: None,
+        typing_delay_ms: None,
+    };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::input_tab_element(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_press_key(
+    #[string] id: String,
+    #[string] key: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::PressKeyRequest { key };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::press_scraper_key(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_tab_press_key(
+    #[string] id: String,
+    #[string] key: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::PressKeyRequest { key };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::press_tab_key(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_upload_file(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] file_path: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::UploadFileRequest { selector, file_path };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::upload_scraper_file(&c, &id, body)
+    })
+}
+
+#[op2]
+#[string]
+fn op_floorp_tab_upload_file(
+    #[string] id: String,
+    #[string] selector: String,
+    #[string] file_path: String,
+) -> Result<String, JsErrorBox> {
+    let body = openapi::models::UploadFileRequest { selector, file_path };
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::upload_tab_file(&c, &id, body)
+    })
+}
+
+make_plugin!(
+    floorp_input_plugin,
+    op_floorp_input,
+    "input",
+    "Input",
+    "Type into an element."
+);
+
+make_plugin!(
+    floorp_tab_input_plugin,
+    op_floorp_tab_input,
+    "tabInput",
+    "Tab Input",
+    "Type into an element in tab."
+);
+
+make_plugin!(
+    floorp_press_key_plugin,
+    op_floorp_press_key,
+    "pressKey",
+    "Press Key",
+    "Press key or key combination."
+);
+
+make_plugin!(
+    floorp_tab_press_key_plugin,
+    op_floorp_tab_press_key,
+    "tabPressKey",
+    "Tab Press Key",
+    "Press key or key combination in tab."
+);
+
+make_plugin!(
+    floorp_upload_file_plugin,
+    op_floorp_upload_file,
+    "uploadFile",
+    "Upload File",
+    "Upload file via input[type=file]."
+);
+
+make_plugin!(
+    floorp_tab_upload_file_plugin,
+    op_floorp_tab_upload_file,
+    "tabUploadFile",
+    "Tab Upload File",
+    "Upload file via input[type=file] in tab."
 );

@@ -15,6 +15,31 @@ function floorpScraperHtml(id) {
 function floorpScraperUri(id) {
   return Deno.core.ops.op_floorp_scraper_uri(id);
 }
+function floorpGetElements(id, selector) {
+  return Deno.core.ops.op_floorp_get_elements(id, selector);
+}
+function floorpTabGetElements(id, selector) {
+  return Deno.core.ops.op_floorp_tab_get_elements(id, selector);
+}
+// Input / Press Key / Upload File functions
+function floorpInput(id, selector, value) {
+  return Deno.core.ops.op_floorp_input(id, selector, value);
+}
+function floorpTabInput(id, selector, value) {
+  return Deno.core.ops.op_floorp_tab_input(id, selector, value);
+}
+function floorpPressKey(id, key) {
+  return Deno.core.ops.op_floorp_press_key(id, key);
+}
+function floorpTabPressKey(id, key) {
+  return Deno.core.ops.op_floorp_tab_press_key(id, key);
+}
+function floorpUploadFile(id, selector, filePath) {
+  return Deno.core.ops.op_floorp_upload_file(id, selector, filePath);
+}
+function floorpTabUploadFile(id, selector, filePath) {
+  return Deno.core.ops.op_floorp_tab_upload_file(id, selector, filePath);
+}
 function floorpWaitForElement(id, selector, timeoutMs) {
   return Deno.core.ops.op_floorp_wait_for_element(
     id,
@@ -378,6 +403,8 @@ globalThis.floorp = {
   dismissAlert: floorpDismissAlert,
   pdf: floorpPdf,
   waitForNetworkIdle: floorpWaitForNetworkIdle,
+  getElements: floorpGetElements,
+  tabGetElements: floorpTabGetElements,
   // New Tab functions
   tabAttribute: floorpTabAttribute,
   tabIsVisible: floorpTabIsVisible,
@@ -403,4 +430,11 @@ globalThis.floorp = {
   switchToNextWorkspace: floorpSwitchToNextWorkspace,
   switchToPreviousWorkspace: floorpSwitchToPreviousWorkspace,
   switchToWorkspace: floorpSwitchToWorkspace,
+  // Input / Press Key / Upload File functions
+  input: floorpInput,
+  tabInput: floorpTabInput,
+  pressKey: floorpPressKey,
+  tabPressKey: floorpTabPressKey,
+  uploadFile: floorpUploadFile,
+  tabUploadFile: floorpTabUploadFile,
 };
