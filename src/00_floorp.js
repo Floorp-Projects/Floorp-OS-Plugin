@@ -437,4 +437,8 @@ globalThis.floorp = {
   tabPressKey: floorpTabPressKey,
   uploadFile: floorpUploadFile,
   tabUploadFile: floorpTabUploadFile,
+  // Screenshot functions
+  tabElementScreenshot: floorpTabElementScreenshot,
+  tabFullPageScreenshot: floorpTabFullPageScreenshot,
+  tabRegionScreenshot: floorpTabRegionScreenshot,
 };
