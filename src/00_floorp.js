@@ -192,6 +192,9 @@ function floorpDestroyTabInstance(id) {
 function floorpDestroyScraperInstance(id) {
   return Deno.core.ops.op_floorp_destroy_scraper_instance(id);
 }
+function floorpCloseTab(id) {
+  return Deno.core.ops.op_floorp_close_tab(id);
+}
 function floorpCheckTabInstanceExists(id) {
   return Deno.core.ops.op_floorp_check_tab_instance_exists(id);
 }
@@ -382,6 +385,7 @@ globalThis.floorp = {
   attachToTab: floorpAttachToTab,
   destroyTabInstance: floorpDestroyTabInstance,
   destroyScraperInstance: floorpDestroyScraperInstance,
+  closeTab: floorpCloseTab,
   checkTabInstanceExists: floorpCheckTabInstanceExists,
   checkScraperInstanceExists: floorpCheckScraperInstanceExists,
   // New Scraper functions

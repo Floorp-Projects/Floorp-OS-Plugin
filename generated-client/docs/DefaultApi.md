@@ -13,12 +13,15 @@ Method | HTTP request | Description
 [**clear_tab_input**](DefaultApi.md#clear_tab_input) | **POST** /tabs/instances/{id}/clearInput | Clear input field in tab instance
 [**click_scraper_element**](DefaultApi.md#click_scraper_element) | **POST** /scraper/instances/{id}/click | Click an element in scraper instance
 [**click_tab_element**](DefaultApi.md#click_tab_element) | **POST** /tabs/instances/{id}/click | Click an element in tab instance
+[**close_tab**](DefaultApi.md#close_tab) | **POST** /tabs/instances/{id}/close | Close tab (destroy instance and close browser tab)
 [**create_scraper_instance**](DefaultApi.md#create_scraper_instance) | **POST** /scraper/instances | Create a new scraper instance
 [**create_tab_instance**](DefaultApi.md#create_tab_instance) | **POST** /tabs/instances | Create a new tab instance
 [**destroy_scraper_instance**](DefaultApi.md#destroy_scraper_instance) | **DELETE** /scraper/instances/{id} | Destroy a scraper instance
 [**destroy_tab_instance**](DefaultApi.md#destroy_tab_instance) | **DELETE** /tabs/instances/{id} | Destroy tab instance
 [**dismiss_scraper_alert**](DefaultApi.md#dismiss_scraper_alert) | **POST** /scraper/instances/{id}/dismissAlert | Dismiss alert
 [**dismiss_tab_alert**](DefaultApi.md#dismiss_tab_alert) | **POST** /tabs/instances/{id}/dismissAlert | Dismiss alert
+[**dispatch_scraper_event**](DefaultApi.md#dispatch_scraper_event) | **POST** /scraper/instances/{id}/dispatchEvent | Dispatch event on element
+[**dispatch_tab_event**](DefaultApi.md#dispatch_tab_event) | **POST** /tabs/instances/{id}/dispatchEvent | Dispatch event on element in tab
 [**double_click_scraper_element**](DefaultApi.md#double_click_scraper_element) | **POST** /scraper/instances/{id}/doubleClick | Double click element
 [**double_click_tab_element**](DefaultApi.md#double_click_tab_element) | **POST** /tabs/instances/{id}/doubleClick | Double click element
 [**drag_and_drop_scraper_element**](DefaultApi.md#drag_and_drop_scraper_element) | **POST** /scraper/instances/{id}/dragAndDrop | Drag and drop element
@@ -57,6 +60,8 @@ Method | HTTP request | Description
 [**get_tab_title**](DefaultApi.md#get_tab_title) | **GET** /tabs/instances/{id}/title | Get page title
 [**hover_scraper_element**](DefaultApi.md#hover_scraper_element) | **POST** /scraper/instances/{id}/hover | Hover over element
 [**hover_tab_element**](DefaultApi.md#hover_tab_element) | **POST** /tabs/instances/{id}/hover | Hover over element
+[**input_scraper_element**](DefaultApi.md#input_scraper_element) | **POST** /scraper/instances/{id}/input | Type into an element
+[**input_tab_element**](DefaultApi.md#input_tab_element) | **POST** /tabs/instances/{id}/input | Type into an element in tab
 [**is_scraper_enabled**](DefaultApi.md#is_scraper_enabled) | **GET** /scraper/instances/{id}/isEnabled | Check if element is enabled
 [**is_scraper_visible**](DefaultApi.md#is_scraper_visible) | **GET** /scraper/instances/{id}/isVisible | Check if element is visible
 [**is_tab_enabled**](DefaultApi.md#is_tab_enabled) | **GET** /tabs/instances/{id}/isEnabled | Check if element is enabled
@@ -65,6 +70,8 @@ Method | HTTP request | Description
 [**list_workspaces**](DefaultApi.md#list_workspaces) | **GET** /workspaces | List all workspaces
 [**navigate_scraper_instance**](DefaultApi.md#navigate_scraper_instance) | **POST** /scraper/instances/{id}/navigate | Navigate scraper instance to URL
 [**navigate_tab_instance**](DefaultApi.md#navigate_tab_instance) | **POST** /tabs/instances/{id}/navigate | Navigate tab instance to URL
+[**press_scraper_key**](DefaultApi.md#press_scraper_key) | **POST** /scraper/instances/{id}/pressKey | Press key or key combination
+[**press_tab_key**](DefaultApi.md#press_tab_key) | **POST** /tabs/instances/{id}/pressKey | Press key or key combination in tab
 [**right_click_scraper_element**](DefaultApi.md#right_click_scraper_element) | **POST** /scraper/instances/{id}/rightClick | Right click element
 [**right_click_tab_element**](DefaultApi.md#right_click_tab_element) | **POST** /tabs/instances/{id}/rightClick | Right click element
 [**save_scraper_pdf**](DefaultApi.md#save_scraper_pdf) | **GET** /scraper/instances/{id}/pdf | Save as PDF
@@ -75,8 +82,12 @@ Method | HTTP request | Description
 [**select_tab_option**](DefaultApi.md#select_tab_option) | **POST** /tabs/instances/{id}/selectOption | Select option in dropdown
 [**set_scraper_checked**](DefaultApi.md#set_scraper_checked) | **POST** /scraper/instances/{id}/setChecked | Set checkbox/radio checked state
 [**set_scraper_cookie**](DefaultApi.md#set_scraper_cookie) | **POST** /scraper/instances/{id}/cookie | Set cookie
+[**set_scraper_inner_html**](DefaultApi.md#set_scraper_inner_html) | **POST** /scraper/instances/{id}/setInnerHTML | Set innerHTML of element
+[**set_scraper_text_content**](DefaultApi.md#set_scraper_text_content) | **POST** /scraper/instances/{id}/setTextContent | Set textContent of element
 [**set_tab_checked**](DefaultApi.md#set_tab_checked) | **POST** /tabs/instances/{id}/setChecked | Set checkbox/radio checked state
 [**set_tab_cookie**](DefaultApi.md#set_tab_cookie) | **POST** /tabs/instances/{id}/cookie | Set cookie
+[**set_tab_inner_html**](DefaultApi.md#set_tab_inner_html) | **POST** /tabs/instances/{id}/setInnerHTML | Set innerHTML of element in tab
+[**set_tab_text_content**](DefaultApi.md#set_tab_text_content) | **POST** /tabs/instances/{id}/setTextContent | Set textContent of element in tab
 [**submit_scraper_form**](DefaultApi.md#submit_scraper_form) | **POST** /scraper/instances/{id}/submit | Submit form in scraper instance
 [**submit_tab_form**](DefaultApi.md#submit_tab_form) | **POST** /tabs/instances/{id}/submit | Submit form in tab instance
 [**subscribe_browser_events**](DefaultApi.md#subscribe_browser_events) | **GET** /browser/events | Subscribe to browser events
@@ -91,6 +102,8 @@ Method | HTTP request | Description
 [**take_tab_full_page_screenshot**](DefaultApi.md#take_tab_full_page_screenshot) | **GET** /tabs/instances/{id}/fullPageScreenshot | Take full page screenshot of tab instance
 [**take_tab_region_screenshot**](DefaultApi.md#take_tab_region_screenshot) | **POST** /tabs/instances/{id}/regionScreenshot | Take screenshot of specific region in tab instance
 [**take_tab_screenshot**](DefaultApi.md#take_tab_screenshot) | **GET** /tabs/instances/{id}/screenshot | Take screenshot of tab instance
+[**upload_scraper_file**](DefaultApi.md#upload_scraper_file) | **POST** /scraper/instances/{id}/uploadFile | Upload file via input[type=file]
+[**upload_tab_file**](DefaultApi.md#upload_tab_file) | **POST** /tabs/instances/{id}/uploadFile | Upload file via input[type=file] in tab
 [**wait_for_scraper_element**](DefaultApi.md#wait_for_scraper_element) | **POST** /scraper/instances/{id}/waitForElement | Wait for element to appear
 [**wait_for_scraper_network_idle**](DefaultApi.md#wait_for_scraper_network_idle) | **POST** /scraper/instances/{id}/waitForNetworkIdle | Wait for network idle
 [**wait_for_tab_element**](DefaultApi.md#wait_for_tab_element) | **POST** /tabs/instances/{id}/waitForElement | Wait for element to appear in tab instance
@@ -354,6 +367,34 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## close_tab
+
+> models::OkResponse close_tab(id)
+Close tab (destroy instance and close browser tab)
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## create_scraper_instance
 
 > models::CreateInstanceResponse create_scraper_instance()
@@ -514,6 +555,64 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## dispatch_scraper_event
+
+> models::OkResponse dispatch_scraper_event(id, dispatch_event_request)
+Dispatch event on element
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**dispatch_event_request** | [**DispatchEventRequest**](DispatchEventRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## dispatch_tab_event
+
+> models::OkResponse dispatch_tab_event(id, dispatch_event_request)
+Dispatch event on element in tab
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**dispatch_event_request** | [**DispatchEventRequest**](DispatchEventRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1602,6 +1701,64 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## input_scraper_element
+
+> models::OkResponse input_scraper_element(id, input_request)
+Type into an element
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**input_request** | [**InputRequest**](InputRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## input_tab_element
+
+> models::OkResponse input_tab_element(id, input_request)
+Type into an element in tab
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**input_request** | [**InputRequest**](InputRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## is_scraper_enabled
 
 > models::EnabledResponse is_scraper_enabled(id, selector)
@@ -1811,6 +1968,64 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
 **navigate_request** | [**NavigateRequest**](NavigateRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## press_scraper_key
+
+> models::OkResponse press_scraper_key(id, press_key_request)
+Press key or key combination
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**press_key_request** | [**PressKeyRequest**](PressKeyRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## press_tab_key
+
+> models::OkResponse press_tab_key(id, press_key_request)
+Press key or key combination in tab
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**press_key_request** | [**PressKeyRequest**](PressKeyRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2116,6 +2331,64 @@ Name | Type | Description  | Required | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 
+## set_scraper_inner_html
+
+> models::OkResponse set_scraper_inner_html(id, set_inner_html_request)
+Set innerHTML of element
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**set_inner_html_request** | [**SetInnerHtmlRequest**](SetInnerHtmlRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_scraper_text_content
+
+> models::OkResponse set_scraper_text_content(id, set_text_content_request)
+Set textContent of element
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**set_text_content_request** | [**SetTextContentRequest**](SetTextContentRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
 ## set_tab_checked
 
 > models::OkResponse set_tab_checked(id, set_checked_request)
@@ -2157,6 +2430,64 @@ Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
 **cookie_data** | [**CookieData**](CookieData.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_tab_inner_html
+
+> models::OkResponse set_tab_inner_html(id, set_inner_html_request)
+Set innerHTML of element in tab
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**set_inner_html_request** | [**SetInnerHtmlRequest**](SetInnerHtmlRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## set_tab_text_content
+
+> models::OkResponse set_tab_text_content(id, set_text_content_request)
+Set textContent of element in tab
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**set_text_content_request** | [**SetTextContentRequest**](SetTextContentRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2566,6 +2897,64 @@ Name | Type | Description  | Required | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## upload_scraper_file
+
+> models::OkResponse upload_scraper_file(id, upload_file_request)
+Upload file via input[type=file]
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**upload_file_request** | [**UploadFileRequest**](UploadFileRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+
+## upload_tab_file
+
+> models::OkResponse upload_tab_file(id, upload_file_request)
+Upload file via input[type=file] in tab
+
+### Parameters
+
+
+Name | Type | Description  | Required | Notes
+------------- | ------------- | ------------- | ------------- | -------------
+**id** | **String** | Instance identifier | [required] |
+**upload_file_request** | [**UploadFileRequest**](UploadFileRequest.md) |  | [required] |
+
+### Return type
+
+[**models::OkResponse**](OkResponse.md)
+
+### Authorization
+
+[BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

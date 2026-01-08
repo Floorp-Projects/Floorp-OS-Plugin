@@ -1128,6 +1128,20 @@ paths:
               schema:
                 $ref: "#/components/schemas/OkResponse"
 
+  /tabs/instances/{id}/close:
+    post:
+      summary: Close tab (destroy instance and close browser tab)
+      operationId: closeTab
+      parameters:
+        - $ref: "#/components/parameters/InstanceId"
+      responses:
+        "200":
+          description: Tab closed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+
   /tabs/instances/{id}/exists:
     get:
       summary: Check if tab instance exists

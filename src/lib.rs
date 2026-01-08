@@ -40,6 +40,7 @@ pub fn core_floorp_plugin_package() -> CorePluginPackage {
             floorp_health_plugin(),
             floorp_create_scraper_instance_plugin(),
             floorp_destroy_scraper_instance_plugin(),
+            floorp_close_tab_plugin(),
             floorp_navigate_scraper_plugin(),
             floorp_scraper_html_plugin(),
             floorp_get_elements_plugin(),
@@ -1213,6 +1214,15 @@ fn op_floorp_destroy_scraper_instance(#[string] id: String) -> Result<String, Js
 
 #[op2]
 #[string]
+fn op_floorp_close_tab(#[string] id: String) -> Result<String, JsErrorBox> {
+    run_blocking_json(move || {
+        let c = cfg(None);
+        openapi::apis::default_api::close_tab(&c, &id)
+    })
+}
+
+#[op2]
+#[string]
 fn op_floorp_check_tab_instance_exists(#[string] id: String) -> Result<String, JsErrorBox> {
     run_blocking_json(move || {
         let c = cfg(None);
@@ -1561,6 +1571,13 @@ make_plugin!(
     "destroyScraperInstance",
     "Destroy Scraper Instance",
     "Destroy a scraper instance."
+);
+make_plugin!(
+    floorp_close_tab_plugin,
+    op_floorp_close_tab,
+    "closeTab",
+    "Close Tab",
+    "Close a tab instance."
 );
 make_plugin!(
     floorp_check_tab_instance_exists_plugin,
