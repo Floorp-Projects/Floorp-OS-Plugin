@@ -748,7 +748,7 @@ pub enum WaitForTabNetworkIdleError {
 }
 
 
-pub async fn accept_scraper_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<AcceptScraperAlertError>> {
+pub fn accept_scraper_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<AcceptScraperAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -763,7 +763,7 @@ pub async fn accept_scraper_alert(configuration: &configuration::Configuration, 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -774,20 +774,20 @@ pub async fn accept_scraper_alert(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<AcceptScraperAlertError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn accept_tab_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<AcceptTabAlertError>> {
+pub fn accept_tab_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<AcceptTabAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -802,7 +802,7 @@ pub async fn accept_tab_alert(configuration: &configuration::Configuration, id: 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -813,20 +813,20 @@ pub async fn accept_tab_alert(configuration: &configuration::Configuration, id: 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<AcceptTabAlertError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn attach_to_tab(configuration: &configuration::Configuration, attach_request: models::AttachRequest) -> Result<models::AttachResponse, Error<AttachToTabError>> {
+pub fn attach_to_tab(configuration: &configuration::Configuration, attach_request: models::AttachRequest) -> Result<models::AttachResponse, Error<AttachToTabError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_attach_request = attach_request;
 
@@ -842,7 +842,7 @@ pub async fn attach_to_tab(configuration: &configuration::Configuration, attach_
     req_builder = req_builder.json(&p_body_attach_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -853,20 +853,20 @@ pub async fn attach_to_tab(configuration: &configuration::Configuration, attach_
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AttachResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AttachResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<AttachToTabError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn check_scraper_instance_exists(configuration: &configuration::Configuration, id: &str) -> Result<models::ExistsResponse, Error<CheckScraperInstanceExistsError>> {
+pub fn check_scraper_instance_exists(configuration: &configuration::Configuration, id: &str) -> Result<models::ExistsResponse, Error<CheckScraperInstanceExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -881,7 +881,7 @@ pub async fn check_scraper_instance_exists(configuration: &configuration::Config
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -892,20 +892,20 @@ pub async fn check_scraper_instance_exists(configuration: &configuration::Config
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExistsResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExistsResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<CheckScraperInstanceExistsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn check_tab_instance_exists(configuration: &configuration::Configuration, id: &str) -> Result<models::ExistsResponse, Error<CheckTabInstanceExistsError>> {
+pub fn check_tab_instance_exists(configuration: &configuration::Configuration, id: &str) -> Result<models::ExistsResponse, Error<CheckTabInstanceExistsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -920,7 +920,7 @@ pub async fn check_tab_instance_exists(configuration: &configuration::Configurat
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -931,20 +931,20 @@ pub async fn check_tab_instance_exists(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ExistsResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ExistsResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<CheckTabInstanceExistsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn clear_scraper_input(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClearScraperInputError>> {
+pub fn clear_scraper_input(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClearScraperInputError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -961,7 +961,7 @@ pub async fn clear_scraper_input(configuration: &configuration::Configuration, i
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -972,20 +972,20 @@ pub async fn clear_scraper_input(configuration: &configuration::Configuration, i
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ClearScraperInputError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn clear_tab_input(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClearTabInputError>> {
+pub fn clear_tab_input(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClearTabInputError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1002,7 +1002,7 @@ pub async fn clear_tab_input(configuration: &configuration::Configuration, id: &
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1013,20 +1013,20 @@ pub async fn clear_tab_input(configuration: &configuration::Configuration, id: &
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ClearTabInputError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClickScraperElementError>> {
+pub fn click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClickScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1043,7 +1043,7 @@ pub async fn click_scraper_element(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1054,20 +1054,20 @@ pub async fn click_scraper_element(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ClickScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClickTabElementError>> {
+pub fn click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClickTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1084,7 +1084,7 @@ pub async fn click_tab_element(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1095,20 +1095,20 @@ pub async fn click_tab_element(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ClickTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn close_tab(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<CloseTabError>> {
+pub fn close_tab(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<CloseTabError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -1123,7 +1123,7 @@ pub async fn close_tab(configuration: &configuration::Configuration, id: &str) -
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1134,20 +1134,20 @@ pub async fn close_tab(configuration: &configuration::Configuration, id: &str) -
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<CloseTabError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn create_scraper_instance(configuration: &configuration::Configuration, ) -> Result<models::CreateInstanceResponse, Error<CreateScraperInstanceError>> {
+pub fn create_scraper_instance(configuration: &configuration::Configuration, ) -> Result<models::CreateInstanceResponse, Error<CreateScraperInstanceError>> {
 
     let uri_str = format!("{}/scraper/instances", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1160,7 +1160,7 @@ pub async fn create_scraper_instance(configuration: &configuration::Configuratio
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1171,20 +1171,20 @@ pub async fn create_scraper_instance(configuration: &configuration::Configuratio
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateInstanceResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateInstanceResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<CreateScraperInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn create_tab_instance(configuration: &configuration::Configuration, create_tab_instance_request: models::CreateTabInstanceRequest) -> Result<models::CreateInstanceResponse, Error<CreateTabInstanceError>> {
+pub fn create_tab_instance(configuration: &configuration::Configuration, create_tab_instance_request: models::CreateTabInstanceRequest) -> Result<models::CreateInstanceResponse, Error<CreateTabInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_create_tab_instance_request = create_tab_instance_request;
 
@@ -1200,7 +1200,7 @@ pub async fn create_tab_instance(configuration: &configuration::Configuration, c
     req_builder = req_builder.json(&p_body_create_tab_instance_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1211,20 +1211,20 @@ pub async fn create_tab_instance(configuration: &configuration::Configuration, c
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CreateInstanceResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CreateInstanceResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<CreateTabInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn destroy_scraper_instance(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DestroyScraperInstanceError>> {
+pub fn destroy_scraper_instance(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DestroyScraperInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -1239,7 +1239,7 @@ pub async fn destroy_scraper_instance(configuration: &configuration::Configurati
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1250,20 +1250,20 @@ pub async fn destroy_scraper_instance(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DestroyScraperInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn destroy_tab_instance(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DestroyTabInstanceError>> {
+pub fn destroy_tab_instance(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DestroyTabInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -1278,7 +1278,7 @@ pub async fn destroy_tab_instance(configuration: &configuration::Configuration, 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1289,20 +1289,20 @@ pub async fn destroy_tab_instance(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DestroyTabInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn dismiss_scraper_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DismissScraperAlertError>> {
+pub fn dismiss_scraper_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DismissScraperAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -1317,7 +1317,7 @@ pub async fn dismiss_scraper_alert(configuration: &configuration::Configuration,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1328,20 +1328,20 @@ pub async fn dismiss_scraper_alert(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DismissScraperAlertError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn dismiss_tab_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DismissTabAlertError>> {
+pub fn dismiss_tab_alert(configuration: &configuration::Configuration, id: &str) -> Result<models::OkResponse, Error<DismissTabAlertError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -1356,7 +1356,7 @@ pub async fn dismiss_tab_alert(configuration: &configuration::Configuration, id:
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1367,20 +1367,20 @@ pub async fn dismiss_tab_alert(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DismissTabAlertError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn dispatch_scraper_event(configuration: &configuration::Configuration, id: &str, dispatch_event_request: models::DispatchEventRequest) -> Result<models::OkResponse, Error<DispatchScraperEventError>> {
+pub fn dispatch_scraper_event(configuration: &configuration::Configuration, id: &str, dispatch_event_request: models::DispatchEventRequest) -> Result<models::OkResponse, Error<DispatchScraperEventError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_dispatch_event_request = dispatch_event_request;
@@ -1397,7 +1397,7 @@ pub async fn dispatch_scraper_event(configuration: &configuration::Configuration
     req_builder = req_builder.json(&p_body_dispatch_event_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1408,20 +1408,20 @@ pub async fn dispatch_scraper_event(configuration: &configuration::Configuration
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DispatchScraperEventError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn dispatch_tab_event(configuration: &configuration::Configuration, id: &str, dispatch_event_request: models::DispatchEventRequest) -> Result<models::OkResponse, Error<DispatchTabEventError>> {
+pub fn dispatch_tab_event(configuration: &configuration::Configuration, id: &str, dispatch_event_request: models::DispatchEventRequest) -> Result<models::OkResponse, Error<DispatchTabEventError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_dispatch_event_request = dispatch_event_request;
@@ -1438,7 +1438,7 @@ pub async fn dispatch_tab_event(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_body_dispatch_event_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1449,20 +1449,20 @@ pub async fn dispatch_tab_event(configuration: &configuration::Configuration, id
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DispatchTabEventError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn double_click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<DoubleClickScraperElementError>> {
+pub fn double_click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<DoubleClickScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1479,7 +1479,7 @@ pub async fn double_click_scraper_element(configuration: &configuration::Configu
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1490,20 +1490,20 @@ pub async fn double_click_scraper_element(configuration: &configuration::Configu
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DoubleClickScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn double_click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<DoubleClickTabElementError>> {
+pub fn double_click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<DoubleClickTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1520,7 +1520,7 @@ pub async fn double_click_tab_element(configuration: &configuration::Configurati
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1531,20 +1531,20 @@ pub async fn double_click_tab_element(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DoubleClickTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn drag_and_drop_scraper_element(configuration: &configuration::Configuration, id: &str, drag_and_drop_request: models::DragAndDropRequest) -> Result<models::OkResponse, Error<DragAndDropScraperElementError>> {
+pub fn drag_and_drop_scraper_element(configuration: &configuration::Configuration, id: &str, drag_and_drop_request: models::DragAndDropRequest) -> Result<models::OkResponse, Error<DragAndDropScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_drag_and_drop_request = drag_and_drop_request;
@@ -1561,7 +1561,7 @@ pub async fn drag_and_drop_scraper_element(configuration: &configuration::Config
     req_builder = req_builder.json(&p_body_drag_and_drop_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1572,20 +1572,20 @@ pub async fn drag_and_drop_scraper_element(configuration: &configuration::Config
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DragAndDropScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn drag_and_drop_tab_element(configuration: &configuration::Configuration, id: &str, drag_and_drop_request: models::DragAndDropRequest) -> Result<models::OkResponse, Error<DragAndDropTabElementError>> {
+pub fn drag_and_drop_tab_element(configuration: &configuration::Configuration, id: &str, drag_and_drop_request: models::DragAndDropRequest) -> Result<models::OkResponse, Error<DragAndDropTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_drag_and_drop_request = drag_and_drop_request;
@@ -1602,7 +1602,7 @@ pub async fn drag_and_drop_tab_element(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_body_drag_and_drop_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1613,20 +1613,20 @@ pub async fn drag_and_drop_tab_element(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<DragAndDropTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn fill_scraper_form(configuration: &configuration::Configuration, id: &str, fill_form_request: models::FillFormRequest) -> Result<models::OkResponse, Error<FillScraperFormError>> {
+pub fn fill_scraper_form(configuration: &configuration::Configuration, id: &str, fill_form_request: models::FillFormRequest) -> Result<models::OkResponse, Error<FillScraperFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_fill_form_request = fill_form_request;
@@ -1643,7 +1643,7 @@ pub async fn fill_scraper_form(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_fill_form_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1654,20 +1654,20 @@ pub async fn fill_scraper_form(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<FillScraperFormError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn fill_tab_form(configuration: &configuration::Configuration, id: &str, fill_form_request: models::FillFormRequest) -> Result<models::OkResponse, Error<FillTabFormError>> {
+pub fn fill_tab_form(configuration: &configuration::Configuration, id: &str, fill_form_request: models::FillFormRequest) -> Result<models::OkResponse, Error<FillTabFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_fill_form_request = fill_form_request;
@@ -1684,7 +1684,7 @@ pub async fn fill_tab_form(configuration: &configuration::Configuration, id: &st
     req_builder = req_builder.json(&p_body_fill_form_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1695,20 +1695,20 @@ pub async fn fill_tab_form(configuration: &configuration::Configuration, id: &st
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<FillTabFormError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn focus_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<FocusScraperElementError>> {
+pub fn focus_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<FocusScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1725,7 +1725,7 @@ pub async fn focus_scraper_element(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1736,20 +1736,20 @@ pub async fn focus_scraper_element(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<FocusScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn focus_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<FocusTabElementError>> {
+pub fn focus_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<FocusTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -1766,7 +1766,7 @@ pub async fn focus_tab_element(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1777,20 +1777,20 @@ pub async fn focus_tab_element(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<FocusTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_browser_context(configuration: &configuration::Configuration, history_limit: Option<i32>, download_limit: Option<i32>) -> Result<models::BrowserContext, Error<GetBrowserContextError>> {
+pub fn get_browser_context(configuration: &configuration::Configuration, history_limit: Option<i32>, download_limit: Option<i32>) -> Result<models::BrowserContext, Error<GetBrowserContextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_history_limit = history_limit;
     let p_query_download_limit = download_limit;
@@ -1812,7 +1812,7 @@ pub async fn get_browser_context(configuration: &configuration::Configuration, h
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1823,20 +1823,20 @@ pub async fn get_browser_context(configuration: &configuration::Configuration, h
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::BrowserContext`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::BrowserContext`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetBrowserContextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_browser_downloads(configuration: &configuration::Configuration, limit: Option<i32>) -> Result<Vec<models::Download>, Error<GetBrowserDownloadsError>> {
+pub fn get_browser_downloads(configuration: &configuration::Configuration, limit: Option<i32>) -> Result<Vec<models::Download>, Error<GetBrowserDownloadsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
 
@@ -1854,7 +1854,7 @@ pub async fn get_browser_downloads(configuration: &configuration::Configuration,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1865,20 +1865,20 @@ pub async fn get_browser_downloads(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::Download&gt;`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::Download&gt;`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetBrowserDownloadsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_browser_history(configuration: &configuration::Configuration, limit: Option<i32>) -> Result<Vec<models::HistoryItem>, Error<GetBrowserHistoryError>> {
+pub fn get_browser_history(configuration: &configuration::Configuration, limit: Option<i32>) -> Result<Vec<models::HistoryItem>, Error<GetBrowserHistoryError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_query_limit = limit;
 
@@ -1896,7 +1896,7 @@ pub async fn get_browser_history(configuration: &configuration::Configuration, l
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1907,20 +1907,20 @@ pub async fn get_browser_history(configuration: &configuration::Configuration, l
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::HistoryItem&gt;`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::HistoryItem&gt;`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetBrowserHistoryError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_browser_tabs(configuration: &configuration::Configuration, ) -> Result<Vec<models::Tab>, Error<GetBrowserTabsError>> {
+pub fn get_browser_tabs(configuration: &configuration::Configuration, ) -> Result<Vec<models::Tab>, Error<GetBrowserTabsError>> {
 
     let uri_str = format!("{}/browser/tabs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -1933,7 +1933,7 @@ pub async fn get_browser_tabs(configuration: &configuration::Configuration, ) ->
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1944,21 +1944,21 @@ pub async fn get_browser_tabs(configuration: &configuration::Configuration, ) ->
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::Tab&gt;`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::Tab&gt;`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetBrowserTabsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns the ID of the currently selected workspace.
-pub async fn get_current_workspace(configuration: &configuration::Configuration, ) -> Result<models::CurrentWorkspaceResponse, Error<GetCurrentWorkspaceError>> {
+pub fn get_current_workspace(configuration: &configuration::Configuration, ) -> Result<models::CurrentWorkspaceResponse, Error<GetCurrentWorkspaceError>> {
 
     let uri_str = format!("{}/workspaces/current", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -1971,7 +1971,7 @@ pub async fn get_current_workspace(configuration: &configuration::Configuration,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -1982,20 +1982,20 @@ pub async fn get_current_workspace(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CurrentWorkspaceResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CurrentWorkspaceResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetCurrentWorkspaceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_health(configuration: &configuration::Configuration, ) -> Result<models::HealthResponse, Error<GetHealthError>> {
+pub fn get_health(configuration: &configuration::Configuration, ) -> Result<models::HealthResponse, Error<GetHealthError>> {
 
     let uri_str = format!("{}/health", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -2008,7 +2008,7 @@ pub async fn get_health(configuration: &configuration::Configuration, ) -> Resul
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2019,20 +2019,20 @@ pub async fn get_health(configuration: &configuration::Configuration, ) -> Resul
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::HealthResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::HealthResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetHealthError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_attribute(configuration: &configuration::Configuration, id: &str, selector: &str, name: &str) -> Result<models::AttributeResponse, Error<GetScraperAttributeError>> {
+pub fn get_scraper_attribute(configuration: &configuration::Configuration, id: &str, selector: &str, name: &str) -> Result<models::AttributeResponse, Error<GetScraperAttributeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2051,7 +2051,7 @@ pub async fn get_scraper_attribute(configuration: &configuration::Configuration,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2062,20 +2062,20 @@ pub async fn get_scraper_attribute(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AttributeResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AttributeResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperAttributeError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_cookies(configuration: &configuration::Configuration, id: &str) -> Result<models::CookieResponse, Error<GetScraperCookiesError>> {
+pub fn get_scraper_cookies(configuration: &configuration::Configuration, id: &str) -> Result<models::CookieResponse, Error<GetScraperCookiesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2090,7 +2090,7 @@ pub async fn get_scraper_cookies(configuration: &configuration::Configuration, i
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2101,20 +2101,20 @@ pub async fn get_scraper_cookies(configuration: &configuration::Configuration, i
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CookieResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CookieResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperCookiesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_element_by_text(configuration: &configuration::Configuration, id: &str, text: &str) -> Result<models::ElementResponse, Error<GetScraperElementByTextError>> {
+pub fn get_scraper_element_by_text(configuration: &configuration::Configuration, id: &str, text: &str) -> Result<models::ElementResponse, Error<GetScraperElementByTextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_text = text;
@@ -2131,7 +2131,7 @@ pub async fn get_scraper_element_by_text(configuration: &configuration::Configur
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2142,20 +2142,20 @@ pub async fn get_scraper_element_by_text(configuration: &configuration::Configur
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ElementResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ElementResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperElementByTextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_element_text(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetScraperElementTextError>> {
+pub fn get_scraper_element_text(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetScraperElementTextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2172,7 +2172,7 @@ pub async fn get_scraper_element_text(configuration: &configuration::Configurati
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2183,20 +2183,20 @@ pub async fn get_scraper_element_text(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TextResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TextResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperElementTextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_element_text_content(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetScraperElementTextContentError>> {
+pub fn get_scraper_element_text_content(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetScraperElementTextContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2213,7 +2213,7 @@ pub async fn get_scraper_element_text_content(configuration: &configuration::Con
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2224,20 +2224,20 @@ pub async fn get_scraper_element_text_content(configuration: &configuration::Con
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TextResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TextResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperElementTextContentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_element_value(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ValueResponse, Error<GetScraperElementValueError>> {
+pub fn get_scraper_element_value(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ValueResponse, Error<GetScraperElementValueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2254,7 +2254,7 @@ pub async fn get_scraper_element_value(configuration: &configuration::Configurat
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2265,20 +2265,20 @@ pub async fn get_scraper_element_value(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ValueResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ValueResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperElementValueError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_elements(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetScraperElements200Response, Error<GetScraperElementsError>> {
+pub fn get_scraper_elements(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetScraperElements200Response, Error<GetScraperElementsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2295,7 +2295,7 @@ pub async fn get_scraper_elements(configuration: &configuration::Configuration, 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2306,20 +2306,20 @@ pub async fn get_scraper_elements(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetScraperElements200Response`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetScraperElements200Response`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperElementsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_instance_html(configuration: &configuration::Configuration, id: &str) -> Result<models::HtmlResponse, Error<GetScraperInstanceHtmlError>> {
+pub fn get_scraper_instance_html(configuration: &configuration::Configuration, id: &str) -> Result<models::HtmlResponse, Error<GetScraperInstanceHtmlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2334,7 +2334,7 @@ pub async fn get_scraper_instance_html(configuration: &configuration::Configurat
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2345,20 +2345,20 @@ pub async fn get_scraper_instance_html(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::HtmlResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::HtmlResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperInstanceHtmlError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_instance_uri(configuration: &configuration::Configuration, id: &str) -> Result<models::UriResponse, Error<GetScraperInstanceUriError>> {
+pub fn get_scraper_instance_uri(configuration: &configuration::Configuration, id: &str) -> Result<models::UriResponse, Error<GetScraperInstanceUriError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2373,7 +2373,7 @@ pub async fn get_scraper_instance_uri(configuration: &configuration::Configurati
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2384,20 +2384,20 @@ pub async fn get_scraper_instance_uri(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::UriResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::UriResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperInstanceUriError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_scraper_title(configuration: &configuration::Configuration, id: &str) -> Result<models::TitleResponse, Error<GetScraperTitleError>> {
+pub fn get_scraper_title(configuration: &configuration::Configuration, id: &str) -> Result<models::TitleResponse, Error<GetScraperTitleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2412,7 +2412,7 @@ pub async fn get_scraper_title(configuration: &configuration::Configuration, id:
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2423,20 +2423,20 @@ pub async fn get_scraper_title(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TitleResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TitleResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetScraperTitleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_attribute(configuration: &configuration::Configuration, id: &str, selector: &str, name: &str) -> Result<models::AttributeResponse, Error<GetTabAttributeError>> {
+pub fn get_tab_attribute(configuration: &configuration::Configuration, id: &str, selector: &str, name: &str) -> Result<models::AttributeResponse, Error<GetTabAttributeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2455,7 +2455,7 @@ pub async fn get_tab_attribute(configuration: &configuration::Configuration, id:
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2466,20 +2466,20 @@ pub async fn get_tab_attribute(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::AttributeResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::AttributeResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabAttributeError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_cookies(configuration: &configuration::Configuration, id: &str) -> Result<models::CookieResponse, Error<GetTabCookiesError>> {
+pub fn get_tab_cookies(configuration: &configuration::Configuration, id: &str) -> Result<models::CookieResponse, Error<GetTabCookiesError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2494,7 +2494,7 @@ pub async fn get_tab_cookies(configuration: &configuration::Configuration, id: &
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2505,20 +2505,20 @@ pub async fn get_tab_cookies(configuration: &configuration::Configuration, id: &
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CookieResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CookieResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabCookiesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_element(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetTabElement200Response, Error<GetTabElementError>> {
+pub fn get_tab_element(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetTabElement200Response, Error<GetTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2535,7 +2535,7 @@ pub async fn get_tab_element(configuration: &configuration::Configuration, id: &
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2546,20 +2546,20 @@ pub async fn get_tab_element(configuration: &configuration::Configuration, id: &
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetTabElement200Response`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetTabElement200Response`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_element_by_text(configuration: &configuration::Configuration, id: &str, text: &str) -> Result<models::ElementResponse, Error<GetTabElementByTextError>> {
+pub fn get_tab_element_by_text(configuration: &configuration::Configuration, id: &str, text: &str) -> Result<models::ElementResponse, Error<GetTabElementByTextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_text = text;
@@ -2576,7 +2576,7 @@ pub async fn get_tab_element_by_text(configuration: &configuration::Configuratio
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2587,20 +2587,20 @@ pub async fn get_tab_element_by_text(configuration: &configuration::Configuratio
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ElementResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ElementResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabElementByTextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_element_text(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetTabElementTextError>> {
+pub fn get_tab_element_text(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetTabElementTextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2617,7 +2617,7 @@ pub async fn get_tab_element_text(configuration: &configuration::Configuration, 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2628,20 +2628,20 @@ pub async fn get_tab_element_text(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TextResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TextResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabElementTextError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_element_text_content(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetTabElementTextContentError>> {
+pub fn get_tab_element_text_content(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetTabElementTextContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2658,7 +2658,7 @@ pub async fn get_tab_element_text_content(configuration: &configuration::Configu
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2669,20 +2669,20 @@ pub async fn get_tab_element_text_content(configuration: &configuration::Configu
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TextResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TextResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabElementTextContentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_element_value(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ValueResponse, Error<GetTabElementValueError>> {
+pub fn get_tab_element_value(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ValueResponse, Error<GetTabElementValueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2699,7 +2699,7 @@ pub async fn get_tab_element_value(configuration: &configuration::Configuration,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2710,20 +2710,20 @@ pub async fn get_tab_element_value(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ValueResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ValueResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabElementValueError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_elements(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetScraperElements200Response, Error<GetTabElementsError>> {
+pub fn get_tab_elements(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetScraperElements200Response, Error<GetTabElementsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -2740,7 +2740,7 @@ pub async fn get_tab_elements(configuration: &configuration::Configuration, id: 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2751,20 +2751,20 @@ pub async fn get_tab_elements(configuration: &configuration::Configuration, id: 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::GetScraperElements200Response`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::GetScraperElements200Response`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabElementsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_instance(configuration: &configuration::Configuration, id: &str) -> Result<serde_json::Value, Error<GetTabInstanceError>> {
+pub fn get_tab_instance(configuration: &configuration::Configuration, id: &str) -> Result<serde_json::Value, Error<GetTabInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2779,7 +2779,7 @@ pub async fn get_tab_instance(configuration: &configuration::Configuration, id: 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2790,20 +2790,20 @@ pub async fn get_tab_instance(configuration: &configuration::Configuration, id: 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `serde_json::Value`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `serde_json::Value`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_instance_html(configuration: &configuration::Configuration, id: &str) -> Result<models::HtmlResponse, Error<GetTabInstanceHtmlError>> {
+pub fn get_tab_instance_html(configuration: &configuration::Configuration, id: &str) -> Result<models::HtmlResponse, Error<GetTabInstanceHtmlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2818,7 +2818,7 @@ pub async fn get_tab_instance_html(configuration: &configuration::Configuration,
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2829,20 +2829,20 @@ pub async fn get_tab_instance_html(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::HtmlResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::HtmlResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabInstanceHtmlError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_instance_uri(configuration: &configuration::Configuration, id: &str) -> Result<models::TabUriResponse, Error<GetTabInstanceUriError>> {
+pub fn get_tab_instance_uri(configuration: &configuration::Configuration, id: &str) -> Result<models::TabUriResponse, Error<GetTabInstanceUriError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2857,7 +2857,7 @@ pub async fn get_tab_instance_uri(configuration: &configuration::Configuration, 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2868,20 +2868,20 @@ pub async fn get_tab_instance_uri(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TabUriResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TabUriResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabInstanceUriError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn get_tab_title(configuration: &configuration::Configuration, id: &str) -> Result<models::TitleResponse, Error<GetTabTitleError>> {
+pub fn get_tab_title(configuration: &configuration::Configuration, id: &str) -> Result<models::TitleResponse, Error<GetTabTitleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -2896,7 +2896,7 @@ pub async fn get_tab_title(configuration: &configuration::Configuration, id: &st
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2907,20 +2907,20 @@ pub async fn get_tab_title(configuration: &configuration::Configuration, id: &st
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::TitleResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::TitleResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<GetTabTitleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn hover_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<HoverScraperElementError>> {
+pub fn hover_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<HoverScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -2937,7 +2937,7 @@ pub async fn hover_scraper_element(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2948,20 +2948,20 @@ pub async fn hover_scraper_element(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<HoverScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn hover_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<HoverTabElementError>> {
+pub fn hover_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<HoverTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -2978,7 +2978,7 @@ pub async fn hover_tab_element(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -2989,20 +2989,20 @@ pub async fn hover_tab_element(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<HoverTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn input_scraper_element(configuration: &configuration::Configuration, id: &str, input_request: models::InputRequest) -> Result<models::OkResponse, Error<InputScraperElementError>> {
+pub fn input_scraper_element(configuration: &configuration::Configuration, id: &str, input_request: models::InputRequest) -> Result<models::OkResponse, Error<InputScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_input_request = input_request;
@@ -3019,7 +3019,7 @@ pub async fn input_scraper_element(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_input_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3030,20 +3030,20 @@ pub async fn input_scraper_element(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<InputScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn input_tab_element(configuration: &configuration::Configuration, id: &str, input_request: models::InputRequest) -> Result<models::OkResponse, Error<InputTabElementError>> {
+pub fn input_tab_element(configuration: &configuration::Configuration, id: &str, input_request: models::InputRequest) -> Result<models::OkResponse, Error<InputTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_input_request = input_request;
@@ -3060,7 +3060,7 @@ pub async fn input_tab_element(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_input_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3071,20 +3071,20 @@ pub async fn input_tab_element(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<InputTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn is_scraper_enabled(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::EnabledResponse, Error<IsScraperEnabledError>> {
+pub fn is_scraper_enabled(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::EnabledResponse, Error<IsScraperEnabledError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -3101,7 +3101,7 @@ pub async fn is_scraper_enabled(configuration: &configuration::Configuration, id
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3112,20 +3112,20 @@ pub async fn is_scraper_enabled(configuration: &configuration::Configuration, id
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnabledResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnabledResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<IsScraperEnabledError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn is_scraper_visible(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::VisibleResponse, Error<IsScraperVisibleError>> {
+pub fn is_scraper_visible(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::VisibleResponse, Error<IsScraperVisibleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -3142,7 +3142,7 @@ pub async fn is_scraper_visible(configuration: &configuration::Configuration, id
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3153,20 +3153,20 @@ pub async fn is_scraper_visible(configuration: &configuration::Configuration, id
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VisibleResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VisibleResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<IsScraperVisibleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn is_tab_enabled(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::EnabledResponse, Error<IsTabEnabledError>> {
+pub fn is_tab_enabled(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::EnabledResponse, Error<IsTabEnabledError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -3183,7 +3183,7 @@ pub async fn is_tab_enabled(configuration: &configuration::Configuration, id: &s
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3194,20 +3194,20 @@ pub async fn is_tab_enabled(configuration: &configuration::Configuration, id: &s
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::EnabledResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::EnabledResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<IsTabEnabledError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn is_tab_visible(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::VisibleResponse, Error<IsTabVisibleError>> {
+pub fn is_tab_visible(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::VisibleResponse, Error<IsTabVisibleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -3224,7 +3224,7 @@ pub async fn is_tab_visible(configuration: &configuration::Configuration, id: &s
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3235,20 +3235,20 @@ pub async fn is_tab_visible(configuration: &configuration::Configuration, id: &s
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::VisibleResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::VisibleResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<IsTabVisibleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn list_browser_tabs(configuration: &configuration::Configuration, ) -> Result<Vec<models::TabEntry>, Error<ListBrowserTabsError>> {
+pub fn list_browser_tabs(configuration: &configuration::Configuration, ) -> Result<Vec<models::TabEntry>, Error<ListBrowserTabsError>> {
 
     let uri_str = format!("{}/tabs/list", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -3261,7 +3261,7 @@ pub async fn list_browser_tabs(configuration: &configuration::Configuration, ) -
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3272,21 +3272,21 @@ pub async fn list_browser_tabs(configuration: &configuration::Configuration, ) -
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `Vec&lt;models::TabEntry&gt;`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `Vec&lt;models::TabEntry&gt;`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ListBrowserTabsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Returns a list of all workspaces with their metadata and the current workspace ID.
-pub async fn list_workspaces(configuration: &configuration::Configuration, ) -> Result<models::WorkspaceListResponse, Error<ListWorkspacesError>> {
+pub fn list_workspaces(configuration: &configuration::Configuration, ) -> Result<models::WorkspaceListResponse, Error<ListWorkspacesError>> {
 
     let uri_str = format!("{}/workspaces", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -3299,7 +3299,7 @@ pub async fn list_workspaces(configuration: &configuration::Configuration, ) -> 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3310,20 +3310,20 @@ pub async fn list_workspaces(configuration: &configuration::Configuration, ) -> 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::WorkspaceListResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::WorkspaceListResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ListWorkspacesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn navigate_scraper_instance(configuration: &configuration::Configuration, id: &str, navigate_request: models::NavigateRequest) -> Result<models::OkResponse, Error<NavigateScraperInstanceError>> {
+pub fn navigate_scraper_instance(configuration: &configuration::Configuration, id: &str, navigate_request: models::NavigateRequest) -> Result<models::OkResponse, Error<NavigateScraperInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_navigate_request = navigate_request;
@@ -3340,7 +3340,7 @@ pub async fn navigate_scraper_instance(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_body_navigate_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3351,20 +3351,20 @@ pub async fn navigate_scraper_instance(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<NavigateScraperInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn navigate_tab_instance(configuration: &configuration::Configuration, id: &str, navigate_request: models::NavigateRequest) -> Result<models::OkResponse, Error<NavigateTabInstanceError>> {
+pub fn navigate_tab_instance(configuration: &configuration::Configuration, id: &str, navigate_request: models::NavigateRequest) -> Result<models::OkResponse, Error<NavigateTabInstanceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_navigate_request = navigate_request;
@@ -3381,7 +3381,7 @@ pub async fn navigate_tab_instance(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_navigate_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3392,20 +3392,20 @@ pub async fn navigate_tab_instance(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<NavigateTabInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn press_scraper_key(configuration: &configuration::Configuration, id: &str, press_key_request: models::PressKeyRequest) -> Result<models::OkResponse, Error<PressScraperKeyError>> {
+pub fn press_scraper_key(configuration: &configuration::Configuration, id: &str, press_key_request: models::PressKeyRequest) -> Result<models::OkResponse, Error<PressScraperKeyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_press_key_request = press_key_request;
@@ -3422,7 +3422,7 @@ pub async fn press_scraper_key(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_press_key_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3433,20 +3433,20 @@ pub async fn press_scraper_key(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<PressScraperKeyError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn press_tab_key(configuration: &configuration::Configuration, id: &str, press_key_request: models::PressKeyRequest) -> Result<models::OkResponse, Error<PressTabKeyError>> {
+pub fn press_tab_key(configuration: &configuration::Configuration, id: &str, press_key_request: models::PressKeyRequest) -> Result<models::OkResponse, Error<PressTabKeyError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_press_key_request = press_key_request;
@@ -3463,7 +3463,7 @@ pub async fn press_tab_key(configuration: &configuration::Configuration, id: &st
     req_builder = req_builder.json(&p_body_press_key_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3474,20 +3474,20 @@ pub async fn press_tab_key(configuration: &configuration::Configuration, id: &st
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<PressTabKeyError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn right_click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<RightClickScraperElementError>> {
+pub fn right_click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<RightClickScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -3504,7 +3504,7 @@ pub async fn right_click_scraper_element(configuration: &configuration::Configur
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3515,20 +3515,20 @@ pub async fn right_click_scraper_element(configuration: &configuration::Configur
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<RightClickScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn right_click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<RightClickTabElementError>> {
+pub fn right_click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<RightClickTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -3545,7 +3545,7 @@ pub async fn right_click_tab_element(configuration: &configuration::Configuratio
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3556,20 +3556,20 @@ pub async fn right_click_tab_element(configuration: &configuration::Configuratio
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<RightClickTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn save_scraper_pdf(configuration: &configuration::Configuration, id: &str) -> Result<models::PdfResponse, Error<SaveScraperPdfError>> {
+pub fn save_scraper_pdf(configuration: &configuration::Configuration, id: &str) -> Result<models::PdfResponse, Error<SaveScraperPdfError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -3584,7 +3584,7 @@ pub async fn save_scraper_pdf(configuration: &configuration::Configuration, id: 
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3595,20 +3595,20 @@ pub async fn save_scraper_pdf(configuration: &configuration::Configuration, id: 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PdfResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PdfResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SaveScraperPdfError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn save_tab_pdf(configuration: &configuration::Configuration, id: &str) -> Result<models::PdfResponse, Error<SaveTabPdfError>> {
+pub fn save_tab_pdf(configuration: &configuration::Configuration, id: &str) -> Result<models::PdfResponse, Error<SaveTabPdfError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -3623,7 +3623,7 @@ pub async fn save_tab_pdf(configuration: &configuration::Configuration, id: &str
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3634,20 +3634,20 @@ pub async fn save_tab_pdf(configuration: &configuration::Configuration, id: &str
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::PdfResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::PdfResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SaveTabPdfError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn scroll_to_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ScrollToScraperElementError>> {
+pub fn scroll_to_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ScrollToScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -3664,7 +3664,7 @@ pub async fn scroll_to_scraper_element(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3675,20 +3675,20 @@ pub async fn scroll_to_scraper_element(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ScrollToScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn scroll_to_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ScrollToTabElementError>> {
+pub fn scroll_to_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ScrollToTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -3705,7 +3705,7 @@ pub async fn scroll_to_tab_element(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3716,20 +3716,20 @@ pub async fn scroll_to_tab_element(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<ScrollToTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn select_scraper_option(configuration: &configuration::Configuration, id: &str, select_option_request: models::SelectOptionRequest) -> Result<models::OkResponse, Error<SelectScraperOptionError>> {
+pub fn select_scraper_option(configuration: &configuration::Configuration, id: &str, select_option_request: models::SelectOptionRequest) -> Result<models::OkResponse, Error<SelectScraperOptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_select_option_request = select_option_request;
@@ -3746,7 +3746,7 @@ pub async fn select_scraper_option(configuration: &configuration::Configuration,
     req_builder = req_builder.json(&p_body_select_option_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3757,20 +3757,20 @@ pub async fn select_scraper_option(configuration: &configuration::Configuration,
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SelectScraperOptionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn select_tab_option(configuration: &configuration::Configuration, id: &str, select_option_request: models::SelectOptionRequest) -> Result<models::OkResponse, Error<SelectTabOptionError>> {
+pub fn select_tab_option(configuration: &configuration::Configuration, id: &str, select_option_request: models::SelectOptionRequest) -> Result<models::OkResponse, Error<SelectTabOptionError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_select_option_request = select_option_request;
@@ -3787,7 +3787,7 @@ pub async fn select_tab_option(configuration: &configuration::Configuration, id:
     req_builder = req_builder.json(&p_body_select_option_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3798,20 +3798,20 @@ pub async fn select_tab_option(configuration: &configuration::Configuration, id:
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SelectTabOptionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_scraper_checked(configuration: &configuration::Configuration, id: &str, set_checked_request: models::SetCheckedRequest) -> Result<models::OkResponse, Error<SetScraperCheckedError>> {
+pub fn set_scraper_checked(configuration: &configuration::Configuration, id: &str, set_checked_request: models::SetCheckedRequest) -> Result<models::OkResponse, Error<SetScraperCheckedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_set_checked_request = set_checked_request;
@@ -3828,7 +3828,7 @@ pub async fn set_scraper_checked(configuration: &configuration::Configuration, i
     req_builder = req_builder.json(&p_body_set_checked_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3839,20 +3839,20 @@ pub async fn set_scraper_checked(configuration: &configuration::Configuration, i
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetScraperCheckedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_scraper_cookie(configuration: &configuration::Configuration, id: &str, cookie_data: models::CookieData) -> Result<models::OkResponse, Error<SetScraperCookieError>> {
+pub fn set_scraper_cookie(configuration: &configuration::Configuration, id: &str, cookie_data: models::CookieData) -> Result<models::OkResponse, Error<SetScraperCookieError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_cookie_data = cookie_data;
@@ -3869,7 +3869,7 @@ pub async fn set_scraper_cookie(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_body_cookie_data);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3880,20 +3880,20 @@ pub async fn set_scraper_cookie(configuration: &configuration::Configuration, id
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetScraperCookieError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_scraper_inner_html(configuration: &configuration::Configuration, id: &str, set_inner_html_request: models::SetInnerHtmlRequest) -> Result<models::OkResponse, Error<SetScraperInnerHtmlError>> {
+pub fn set_scraper_inner_html(configuration: &configuration::Configuration, id: &str, set_inner_html_request: models::SetInnerHtmlRequest) -> Result<models::OkResponse, Error<SetScraperInnerHtmlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_set_inner_html_request = set_inner_html_request;
@@ -3910,7 +3910,7 @@ pub async fn set_scraper_inner_html(configuration: &configuration::Configuration
     req_builder = req_builder.json(&p_body_set_inner_html_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3921,20 +3921,20 @@ pub async fn set_scraper_inner_html(configuration: &configuration::Configuration
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetScraperInnerHtmlError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_scraper_text_content(configuration: &configuration::Configuration, id: &str, set_text_content_request: models::SetTextContentRequest) -> Result<models::OkResponse, Error<SetScraperTextContentError>> {
+pub fn set_scraper_text_content(configuration: &configuration::Configuration, id: &str, set_text_content_request: models::SetTextContentRequest) -> Result<models::OkResponse, Error<SetScraperTextContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_set_text_content_request = set_text_content_request;
@@ -3951,7 +3951,7 @@ pub async fn set_scraper_text_content(configuration: &configuration::Configurati
     req_builder = req_builder.json(&p_body_set_text_content_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -3962,20 +3962,20 @@ pub async fn set_scraper_text_content(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetScraperTextContentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_tab_checked(configuration: &configuration::Configuration, id: &str, set_checked_request: models::SetCheckedRequest) -> Result<models::OkResponse, Error<SetTabCheckedError>> {
+pub fn set_tab_checked(configuration: &configuration::Configuration, id: &str, set_checked_request: models::SetCheckedRequest) -> Result<models::OkResponse, Error<SetTabCheckedError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_set_checked_request = set_checked_request;
@@ -3992,7 +3992,7 @@ pub async fn set_tab_checked(configuration: &configuration::Configuration, id: &
     req_builder = req_builder.json(&p_body_set_checked_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4003,20 +4003,20 @@ pub async fn set_tab_checked(configuration: &configuration::Configuration, id: &
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetTabCheckedError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_tab_cookie(configuration: &configuration::Configuration, id: &str, cookie_data: models::CookieData) -> Result<models::OkResponse, Error<SetTabCookieError>> {
+pub fn set_tab_cookie(configuration: &configuration::Configuration, id: &str, cookie_data: models::CookieData) -> Result<models::OkResponse, Error<SetTabCookieError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_cookie_data = cookie_data;
@@ -4033,7 +4033,7 @@ pub async fn set_tab_cookie(configuration: &configuration::Configuration, id: &s
     req_builder = req_builder.json(&p_body_cookie_data);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4044,20 +4044,20 @@ pub async fn set_tab_cookie(configuration: &configuration::Configuration, id: &s
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetTabCookieError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_tab_inner_html(configuration: &configuration::Configuration, id: &str, set_inner_html_request: models::SetInnerHtmlRequest) -> Result<models::OkResponse, Error<SetTabInnerHtmlError>> {
+pub fn set_tab_inner_html(configuration: &configuration::Configuration, id: &str, set_inner_html_request: models::SetInnerHtmlRequest) -> Result<models::OkResponse, Error<SetTabInnerHtmlError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_set_inner_html_request = set_inner_html_request;
@@ -4074,7 +4074,7 @@ pub async fn set_tab_inner_html(configuration: &configuration::Configuration, id
     req_builder = req_builder.json(&p_body_set_inner_html_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4085,20 +4085,20 @@ pub async fn set_tab_inner_html(configuration: &configuration::Configuration, id
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetTabInnerHtmlError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn set_tab_text_content(configuration: &configuration::Configuration, id: &str, set_text_content_request: models::SetTextContentRequest) -> Result<models::OkResponse, Error<SetTabTextContentError>> {
+pub fn set_tab_text_content(configuration: &configuration::Configuration, id: &str, set_text_content_request: models::SetTextContentRequest) -> Result<models::OkResponse, Error<SetTabTextContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_set_text_content_request = set_text_content_request;
@@ -4115,7 +4115,7 @@ pub async fn set_tab_text_content(configuration: &configuration::Configuration, 
     req_builder = req_builder.json(&p_body_set_text_content_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4126,20 +4126,20 @@ pub async fn set_tab_text_content(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SetTabTextContentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn submit_scraper_form(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<SubmitScraperFormError>> {
+pub fn submit_scraper_form(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<SubmitScraperFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -4156,7 +4156,7 @@ pub async fn submit_scraper_form(configuration: &configuration::Configuration, i
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4167,20 +4167,20 @@ pub async fn submit_scraper_form(configuration: &configuration::Configuration, i
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SubmitScraperFormError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn submit_tab_form(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<SubmitTabFormError>> {
+pub fn submit_tab_form(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<SubmitTabFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_selector_request = selector_request;
@@ -4197,7 +4197,7 @@ pub async fn submit_tab_form(configuration: &configuration::Configuration, id: &
     req_builder = req_builder.json(&p_body_selector_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4208,21 +4208,21 @@ pub async fn submit_tab_form(configuration: &configuration::Configuration, id: &
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SubmitTabFormError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Establishes a Server-Sent Events (SSE) connection to receive real-time updates about browser state changes. 
-pub async fn subscribe_browser_events(configuration: &configuration::Configuration, ) -> Result<String, Error<SubscribeBrowserEventsError>> {
+pub fn subscribe_browser_events(configuration: &configuration::Configuration, ) -> Result<String, Error<SubscribeBrowserEventsError>> {
 
     let uri_str = format!("{}/browser/events", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -4235,7 +4235,7 @@ pub async fn subscribe_browser_events(configuration: &configuration::Configurati
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4246,21 +4246,21 @@ pub async fn subscribe_browser_events(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `String`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `String`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SubscribeBrowserEventsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Switches to the next workspace in the order.
-pub async fn switch_to_next_workspace(configuration: &configuration::Configuration, ) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToNextWorkspaceError>> {
+pub fn switch_to_next_workspace(configuration: &configuration::Configuration, ) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToNextWorkspaceError>> {
 
     let uri_str = format!("{}/workspaces/next", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -4273,7 +4273,7 @@ pub async fn switch_to_next_workspace(configuration: &configuration::Configurati
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4284,21 +4284,21 @@ pub async fn switch_to_next_workspace(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SwitchWorkspaceResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SwitchWorkspaceResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SwitchToNextWorkspaceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Switches to the previous workspace in the order.
-pub async fn switch_to_previous_workspace(configuration: &configuration::Configuration, ) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToPreviousWorkspaceError>> {
+pub fn switch_to_previous_workspace(configuration: &configuration::Configuration, ) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToPreviousWorkspaceError>> {
 
     let uri_str = format!("{}/workspaces/previous", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -4311,7 +4311,7 @@ pub async fn switch_to_previous_workspace(configuration: &configuration::Configu
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4322,21 +4322,21 @@ pub async fn switch_to_previous_workspace(configuration: &configuration::Configu
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SwitchWorkspaceResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SwitchWorkspaceResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SwitchToPreviousWorkspaceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
 /// Switches to the workspace with the specified ID.
-pub async fn switch_to_workspace(configuration: &configuration::Configuration, workspace_id: &str) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToWorkspaceError>> {
+pub fn switch_to_workspace(configuration: &configuration::Configuration, workspace_id: &str) -> Result<models::SwitchWorkspaceResponse, Error<SwitchToWorkspaceError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_workspace_id = workspace_id;
 
@@ -4351,7 +4351,7 @@ pub async fn switch_to_workspace(configuration: &configuration::Configuration, w
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4362,20 +4362,20 @@ pub async fn switch_to_workspace(configuration: &configuration::Configuration, w
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::SwitchWorkspaceResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::SwitchWorkspaceResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<SwitchToWorkspaceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_scraper_element_screenshot(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ImageResponse, Error<TakeScraperElementScreenshotError>> {
+pub fn take_scraper_element_screenshot(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ImageResponse, Error<TakeScraperElementScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -4392,7 +4392,7 @@ pub async fn take_scraper_element_screenshot(configuration: &configuration::Conf
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4403,20 +4403,20 @@ pub async fn take_scraper_element_screenshot(configuration: &configuration::Conf
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeScraperElementScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_scraper_full_page_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeScraperFullPageScreenshotError>> {
+pub fn take_scraper_full_page_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeScraperFullPageScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -4431,7 +4431,7 @@ pub async fn take_scraper_full_page_screenshot(configuration: &configuration::Co
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4442,20 +4442,20 @@ pub async fn take_scraper_full_page_screenshot(configuration: &configuration::Co
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeScraperFullPageScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_scraper_region_screenshot(configuration: &configuration::Configuration, id: &str, region_screenshot_request: models::RegionScreenshotRequest) -> Result<models::ImageResponse, Error<TakeScraperRegionScreenshotError>> {
+pub fn take_scraper_region_screenshot(configuration: &configuration::Configuration, id: &str, region_screenshot_request: models::RegionScreenshotRequest) -> Result<models::ImageResponse, Error<TakeScraperRegionScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_region_screenshot_request = region_screenshot_request;
@@ -4472,7 +4472,7 @@ pub async fn take_scraper_region_screenshot(configuration: &configuration::Confi
     req_builder = req_builder.json(&p_body_region_screenshot_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4483,20 +4483,20 @@ pub async fn take_scraper_region_screenshot(configuration: &configuration::Confi
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeScraperRegionScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_scraper_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeScraperScreenshotError>> {
+pub fn take_scraper_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeScraperScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -4511,7 +4511,7 @@ pub async fn take_scraper_screenshot(configuration: &configuration::Configuratio
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4522,20 +4522,20 @@ pub async fn take_scraper_screenshot(configuration: &configuration::Configuratio
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeScraperScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_tab_element_screenshot(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ImageResponse, Error<TakeTabElementScreenshotError>> {
+pub fn take_tab_element_screenshot(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ImageResponse, Error<TakeTabElementScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_query_selector = selector;
@@ -4552,7 +4552,7 @@ pub async fn take_tab_element_screenshot(configuration: &configuration::Configur
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4563,20 +4563,20 @@ pub async fn take_tab_element_screenshot(configuration: &configuration::Configur
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeTabElementScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_tab_full_page_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeTabFullPageScreenshotError>> {
+pub fn take_tab_full_page_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeTabFullPageScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -4591,7 +4591,7 @@ pub async fn take_tab_full_page_screenshot(configuration: &configuration::Config
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4602,20 +4602,20 @@ pub async fn take_tab_full_page_screenshot(configuration: &configuration::Config
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeTabFullPageScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_tab_region_screenshot(configuration: &configuration::Configuration, id: &str, region_screenshot_request: models::RegionScreenshotRequest) -> Result<models::ImageResponse, Error<TakeTabRegionScreenshotError>> {
+pub fn take_tab_region_screenshot(configuration: &configuration::Configuration, id: &str, region_screenshot_request: models::RegionScreenshotRequest) -> Result<models::ImageResponse, Error<TakeTabRegionScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_region_screenshot_request = region_screenshot_request;
@@ -4632,7 +4632,7 @@ pub async fn take_tab_region_screenshot(configuration: &configuration::Configura
     req_builder = req_builder.json(&p_body_region_screenshot_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4643,20 +4643,20 @@ pub async fn take_tab_region_screenshot(configuration: &configuration::Configura
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeTabRegionScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn take_tab_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeTabScreenshotError>> {
+pub fn take_tab_screenshot(configuration: &configuration::Configuration, id: &str) -> Result<models::ImageResponse, Error<TakeTabScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
 
@@ -4671,7 +4671,7 @@ pub async fn take_tab_screenshot(configuration: &configuration::Configuration, i
     };
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4682,20 +4682,20 @@ pub async fn take_tab_screenshot(configuration: &configuration::Configuration, i
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::ImageResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::ImageResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<TakeTabScreenshotError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn upload_scraper_file(configuration: &configuration::Configuration, id: &str, upload_file_request: models::UploadFileRequest) -> Result<models::OkResponse, Error<UploadScraperFileError>> {
+pub fn upload_scraper_file(configuration: &configuration::Configuration, id: &str, upload_file_request: models::UploadFileRequest) -> Result<models::OkResponse, Error<UploadScraperFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_upload_file_request = upload_file_request;
@@ -4712,7 +4712,7 @@ pub async fn upload_scraper_file(configuration: &configuration::Configuration, i
     req_builder = req_builder.json(&p_body_upload_file_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4723,20 +4723,20 @@ pub async fn upload_scraper_file(configuration: &configuration::Configuration, i
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<UploadScraperFileError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn upload_tab_file(configuration: &configuration::Configuration, id: &str, upload_file_request: models::UploadFileRequest) -> Result<models::OkResponse, Error<UploadTabFileError>> {
+pub fn upload_tab_file(configuration: &configuration::Configuration, id: &str, upload_file_request: models::UploadFileRequest) -> Result<models::OkResponse, Error<UploadTabFileError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_upload_file_request = upload_file_request;
@@ -4753,7 +4753,7 @@ pub async fn upload_tab_file(configuration: &configuration::Configuration, id: &
     req_builder = req_builder.json(&p_body_upload_file_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4764,20 +4764,20 @@ pub async fn upload_tab_file(configuration: &configuration::Configuration, id: &
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<UploadTabFileError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn wait_for_scraper_element(configuration: &configuration::Configuration, id: &str, wait_for_element_request: models::WaitForElementRequest) -> Result<models::FoundResponse, Error<WaitForScraperElementError>> {
+pub fn wait_for_scraper_element(configuration: &configuration::Configuration, id: &str, wait_for_element_request: models::WaitForElementRequest) -> Result<models::FoundResponse, Error<WaitForScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_wait_for_element_request = wait_for_element_request;
@@ -4794,7 +4794,7 @@ pub async fn wait_for_scraper_element(configuration: &configuration::Configurati
     req_builder = req_builder.json(&p_body_wait_for_element_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4805,20 +4805,20 @@ pub async fn wait_for_scraper_element(configuration: &configuration::Configurati
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FoundResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FoundResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<WaitForScraperElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn wait_for_scraper_network_idle(configuration: &configuration::Configuration, id: &str, wait_for_network_idle_request: models::WaitForNetworkIdleRequest) -> Result<models::OkResponse, Error<WaitForScraperNetworkIdleError>> {
+pub fn wait_for_scraper_network_idle(configuration: &configuration::Configuration, id: &str, wait_for_network_idle_request: models::WaitForNetworkIdleRequest) -> Result<models::OkResponse, Error<WaitForScraperNetworkIdleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_wait_for_network_idle_request = wait_for_network_idle_request;
@@ -4835,7 +4835,7 @@ pub async fn wait_for_scraper_network_idle(configuration: &configuration::Config
     req_builder = req_builder.json(&p_body_wait_for_network_idle_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4846,20 +4846,20 @@ pub async fn wait_for_scraper_network_idle(configuration: &configuration::Config
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<WaitForScraperNetworkIdleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn wait_for_tab_element(configuration: &configuration::Configuration, id: &str, wait_for_element_request: models::WaitForElementRequest) -> Result<models::FoundResponse, Error<WaitForTabElementError>> {
+pub fn wait_for_tab_element(configuration: &configuration::Configuration, id: &str, wait_for_element_request: models::WaitForElementRequest) -> Result<models::FoundResponse, Error<WaitForTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_wait_for_element_request = wait_for_element_request;
@@ -4876,7 +4876,7 @@ pub async fn wait_for_tab_element(configuration: &configuration::Configuration, 
     req_builder = req_builder.json(&p_body_wait_for_element_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4887,20 +4887,20 @@ pub async fn wait_for_tab_element(configuration: &configuration::Configuration, 
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::FoundResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::FoundResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<WaitForTabElementError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }
 
-pub async fn wait_for_tab_network_idle(configuration: &configuration::Configuration, id: &str, wait_for_network_idle_request: models::WaitForNetworkIdleRequest) -> Result<models::OkResponse, Error<WaitForTabNetworkIdleError>> {
+pub fn wait_for_tab_network_idle(configuration: &configuration::Configuration, id: &str, wait_for_network_idle_request: models::WaitForNetworkIdleRequest) -> Result<models::OkResponse, Error<WaitForTabNetworkIdleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_body_wait_for_network_idle_request = wait_for_network_idle_request;
@@ -4917,7 +4917,7 @@ pub async fn wait_for_tab_network_idle(configuration: &configuration::Configurat
     req_builder = req_builder.json(&p_body_wait_for_network_idle_request);
 
     let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
+    let resp = configuration.client.execute(req)?;
 
     let status = resp.status();
     let content_type = resp
@@ -4928,14 +4928,14 @@ pub async fn wait_for_tab_network_idle(configuration: &configuration::Configurat
     let content_type = super::ContentType::from(content_type);
 
     if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         match content_type {
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::OkResponse`"))),
             ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::OkResponse`")))),
         }
     } else {
-        let content = resp.text().await?;
+        let content = resp.text()?;
         let entity: Option<WaitForTabNetworkIdleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
