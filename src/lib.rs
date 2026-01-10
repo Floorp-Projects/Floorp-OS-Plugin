@@ -2456,12 +2456,13 @@ fn op_floorp_tab_input(
     #[string] id: String,
     #[string] selector: String,
     #[string] value: String,
+    typing_mode: bool,
 ) -> Result<String, JsErrorBox> {
     let body = openapi::models::InputRequest {
         selector,
         value,
-        typing_mode: None,
-        typing_delay_ms: None,
+        typing_mode: Some(typing_mode),
+        typing_delay_ms: if typing_mode { Some(10) } else { None },
     };
     run_blocking_json(move || {
         let c = cfg(None);

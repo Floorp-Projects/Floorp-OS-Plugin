@@ -25,8 +25,13 @@ function floorpTabGetElements(id, selector) {
 function floorpInput(id, selector, value) {
   return Deno.core.ops.op_floorp_input(id, selector, value);
 }
-function floorpTabInput(id, selector, value) {
-  return Deno.core.ops.op_floorp_tab_input(id, selector, value);
+function floorpTabInput(id, selector, value, typingMode) {
+  return Deno.core.ops.op_floorp_tab_input(
+    id,
+    selector,
+    value,
+    typingMode === true
+  );
 }
 function floorpPressKey(id, key) {
   return Deno.core.ops.op_floorp_press_key(id, key);
