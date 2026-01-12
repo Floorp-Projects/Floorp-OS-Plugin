@@ -147,6 +147,7 @@ pub fn floorp_plugin_package() -> PluginPackage {
     PluginPackage {
         package_id: "app.sapphillon.core.floorp".to_string(),
         package_name: "Floorp".to_string(),
+        provider_id: "".to_string(),
         description: "Floorp browser automation primitives.".to_string(),
         functions: floorp_plugin_functions(),
         package_version: env!("CARGO_PKG_VERSION").to_string(),
@@ -537,8 +538,8 @@ fn floorp_plugin_function(suffix: &str, name: &str, description: &str) -> Plugin
         function_name: name.to_string(),
         description: description.to_string(),
         permissions: vec![],
-        arguments: String::new(),
-        returns: String::new(),
+        function_define: None,
+        version: "".to_string(),
     }
 }
 
