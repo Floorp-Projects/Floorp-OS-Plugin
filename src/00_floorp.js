@@ -26,12 +26,19 @@ function floorpInput(id, selector, value) {
   return Deno.core.ops.op_floorp_input(id, selector, value);
 }
 function floorpTabInput(id, selector, value, typingMode) {
-  return Deno.core.ops.op_floorp_tab_input(
+  var result = Deno.core.ops.op_floorp_tab_input(
     id,
     selector,
     value,
     typingMode === true
   );
+  // Parse result and convert null to false for consistency
+  try {
+    var parsed = JSON.parse(result);
+    return parsed.ok === true ? "true" : "false";
+  } catch (e) {
+    return "false";
+  }
 }
 function floorpPressKey(id, key) {
   return Deno.core.ops.op_floorp_press_key(id, key);
@@ -101,10 +108,17 @@ function floorpRegionScreenshot(id, x, y, w, h) {
   );
 }
 function floorpCreateTab(url, inBackground) {
-  return Deno.core.ops.op_floorp_create_tab_instance(
+  var result = Deno.core.ops.op_floorp_create_tab_instance(
     url,
     inBackground?.toString()
   );
+  // Parse JSON and return instanceId directly for consistency
+  try {
+    var parsed = JSON.parse(result);
+    return parsed.instanceId || result;
+  } catch (e) {
+    return result;
+  }
 }
 function floorpNavigateTab(id, url) {
   return Deno.core.ops.op_floorp_navigate_tab(id, url);
@@ -125,14 +139,28 @@ function floorpTabElementText(id, selector) {
   return Deno.core.ops.op_floorp_tab_element_text(id, selector);
 }
 function floorpTabClick(id, selector) {
-  return Deno.core.ops.op_floorp_tab_click_element(id, selector);
+  var result = Deno.core.ops.op_floorp_tab_click_element(id, selector);
+  // Parse result and convert null to false for consistency
+  try {
+    var parsed = JSON.parse(result);
+    return parsed.ok === true ? "true" : "false";
+  } catch (e) {
+    return "false";
+  }
 }
 function floorpTabWaitForElement(id, selector, timeoutMs) {
-  return Deno.core.ops.op_floorp_tab_wait_for_element(
+  var result = Deno.core.ops.op_floorp_tab_wait_for_element(
     id,
     selector,
     timeoutMs?.toString()
   );
+  // Parse result and convert null to false for consistency
+  try {
+    var parsed = JSON.parse(result);
+    return parsed.ok === true ? "true" : "false";
+  } catch (e) {
+    return "false";
+  }
 }
 function floorpTabClearInput(id, selector) {
   return Deno.core.ops.op_floorp_tab_clear_input(id, selector);
@@ -188,8 +216,15 @@ function floorpBrowserContext(historyLimit, downloadLimit) {
     downloadLimit?.toString()
   );
 }
-function floorpAttachToTab(instanceId) {
-  return Deno.core.ops.op_floorp_attach_to_tab(instanceId);
+function floorpAttachToTab(browserId) {
+  var result = Deno.core.ops.op_floorp_attach_to_tab(browserId);
+  // Parse JSON and return instanceId directly for consistency
+  try {
+    var parsed = JSON.parse(result);
+    return parsed.instanceId || null;
+  } catch (e) {
+    return null;
+  }
 }
 function floorpDestroyTabInstance(id) {
   return Deno.core.ops.op_floorp_destroy_tab_instance(id);
@@ -321,10 +356,17 @@ function floorpTabPdf(id) {
   return Deno.core.ops.op_floorp_tab_pdf(id);
 }
 function floorpTabWaitForNetworkIdle(id, timeoutMs) {
-  return Deno.core.ops.op_floorp_tab_wait_for_network_idle(
+  var result = Deno.core.ops.op_floorp_tab_wait_for_network_idle(
     id,
     timeoutMs?.toString()
   );
+  // Parse result and convert null to false for consistency
+  try {
+    var parsed = JSON.parse(result);
+    return parsed.ok === true ? "true" : "false";
+  } catch (e) {
+    return "false";
+  }
 }
 function floorpListWorkspaces() {
   return Deno.core.ops.op_floorp_list_workspaces();
