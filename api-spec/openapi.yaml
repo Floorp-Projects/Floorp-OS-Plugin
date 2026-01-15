@@ -2045,6 +2045,7 @@ components:
       properties:
         id:
           type: integer
+          format: int64
           description: Tab identifier
         url:
           type: string
