@@ -122,6 +122,7 @@ export interface FillFormRequest {
 // Tab Manager Specific Types
 export interface TabEntry {
   browserId: string;
+  windowId?: string;
   title: string;
   url: string;
   selected: boolean;

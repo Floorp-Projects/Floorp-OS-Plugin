@@ -2276,6 +2276,9 @@ components:
         browserId:
           type: string
           description: Browser identifier
+        windowId:
+          type: string
+          description: Window identifier
         title:
           type: string
           description: Tab title
