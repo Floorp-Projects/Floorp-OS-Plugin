@@ -66,7 +66,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_scraper_cookies**](docs/DefaultApi.md#get_scraper_cookies) | **GET** /scraper/instances/{id}/cookies | Get cookies
 *DefaultApi* | [**get_scraper_element_by_text**](docs/DefaultApi.md#get_scraper_element_by_text) | **GET** /scraper/instances/{id}/elementByText | Find first element containing text
 *DefaultApi* | [**get_scraper_element_text**](docs/DefaultApi.md#get_scraper_element_text) | **GET** /scraper/instances/{id}/elementText | Get text content of element
-*DefaultApi* | [**get_scraper_element_text_content**](docs/DefaultApi.md#get_scraper_element_text_content) | **GET** /scraper/instances/{id}/elementTextContent | Get trimmed text content for selector
+*DefaultApi* | [**get_scraper_element_text_content**](docs/DefaultApi.md#get_scraper_element_text_content) | **GET** /scraper/instances/{id}/elementTextContent | Get trimmed text content for fingerprint
 *DefaultApi* | [**get_scraper_element_value**](docs/DefaultApi.md#get_scraper_element_value) | **GET** /scraper/instances/{id}/value | Get value of form element
 *DefaultApi* | [**get_scraper_elements**](docs/DefaultApi.md#get_scraper_elements) | **GET** /scraper/instances/{id}/elements | Get all matching elements' outerHTML
 *DefaultApi* | [**get_scraper_instance_html**](docs/DefaultApi.md#get_scraper_instance_html) | **GET** /scraper/instances/{id}/html | Get HTML content of scraper instance
@@ -74,10 +74,10 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**get_scraper_title**](docs/DefaultApi.md#get_scraper_title) | **GET** /scraper/instances/{id}/title | Get page title
 *DefaultApi* | [**get_tab_attribute**](docs/DefaultApi.md#get_tab_attribute) | **GET** /tabs/instances/{id}/attribute | Get element attribute
 *DefaultApi* | [**get_tab_cookies**](docs/DefaultApi.md#get_tab_cookies) | **GET** /tabs/instances/{id}/cookies | Get cookies
-*DefaultApi* | [**get_tab_element**](docs/DefaultApi.md#get_tab_element) | **GET** /tabs/instances/{id}/element | Get element HTML for selector in tab instance
+*DefaultApi* | [**get_tab_element**](docs/DefaultApi.md#get_tab_element) | **GET** /tabs/instances/{id}/element | Get element HTML for fingerprint in tab instance
 *DefaultApi* | [**get_tab_element_by_text**](docs/DefaultApi.md#get_tab_element_by_text) | **GET** /tabs/instances/{id}/elementByText | Find first element containing text in tab
 *DefaultApi* | [**get_tab_element_text**](docs/DefaultApi.md#get_tab_element_text) | **GET** /tabs/instances/{id}/elementText | Get text content of element in tab instance
-*DefaultApi* | [**get_tab_element_text_content**](docs/DefaultApi.md#get_tab_element_text_content) | **GET** /tabs/instances/{id}/elementTextContent | Get trimmed text content for selector in tab
+*DefaultApi* | [**get_tab_element_text_content**](docs/DefaultApi.md#get_tab_element_text_content) | **GET** /tabs/instances/{id}/elementTextContent | Get trimmed text content for fingerprint in tab
 *DefaultApi* | [**get_tab_element_value**](docs/DefaultApi.md#get_tab_element_value) | **GET** /tabs/instances/{id}/value | Get value of form element in tab instance
 *DefaultApi* | [**get_tab_elements**](docs/DefaultApi.md#get_tab_elements) | **GET** /tabs/instances/{id}/elements | Get all matching elements' outerHTML for tab
 *DefaultApi* | [**get_tab_instance**](docs/DefaultApi.md#get_tab_instance) | **GET** /tabs/instances/{id} | Get tab instance information
@@ -157,6 +157,7 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/ErrorResponse.md)
  - [ExistsResponse](docs/ExistsResponse.md)
  - [FillFormRequest](docs/FillFormRequest.md)
+ - [FingerprintRequest](docs/FingerprintRequest.md)
  - [FoundResponse](docs/FoundResponse.md)
  - [GetScraperElements200Response](docs/GetScraperElements200Response.md)
  - [GetTabElement200Response](docs/GetTabElement200Response.md)
@@ -172,7 +173,6 @@ Class | Method | HTTP request | Description
  - [Rect](docs/Rect.md)
  - [RegionScreenshotRequest](docs/RegionScreenshotRequest.md)
  - [SelectOptionRequest](docs/SelectOptionRequest.md)
- - [SelectorRequest](docs/SelectorRequest.md)
  - [SetCheckedRequest](docs/SetCheckedRequest.md)
  - [SetInnerHtmlRequest](docs/SetInnerHtmlRequest.md)
  - [SetTextContentRequest](docs/SetTextContentRequest.md)

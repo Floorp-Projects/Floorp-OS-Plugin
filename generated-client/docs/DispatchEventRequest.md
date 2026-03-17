@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**selector** | **String** | CSS selector for the element | 
+**fingerprint** | **String** | Element fingerprint | 
 **event_type** | **String** | Event type to dispatch (e.g., 'click', 'input', 'change') | 
 **options** | Option<[**models::DispatchEventRequestOptions**](DispatchEventRequest_options.md)> |  | [optional]
 

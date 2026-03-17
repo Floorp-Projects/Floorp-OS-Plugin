@@ -12,16 +12,16 @@ use crate::models;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct SelectorRequest {
-    /// CSS selector
-    #[serde(rename = "selector")]
-    pub selector: String,
+pub struct FingerprintRequest {
+    /// Element fingerprint
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
 }
 
-impl SelectorRequest {
-    pub fn new(selector: String) -> SelectorRequest {
-        SelectorRequest {
-            selector,
+impl FingerprintRequest {
+    pub fn new(fingerprint: String) -> FingerprintRequest {
+        FingerprintRequest {
+            fingerprint,
         }
     }
 }

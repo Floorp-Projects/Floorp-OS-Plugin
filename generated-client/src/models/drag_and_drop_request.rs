@@ -13,17 +13,17 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DragAndDropRequest {
-    #[serde(rename = "sourceSelector")]
-    pub source_selector: String,
-    #[serde(rename = "targetSelector")]
-    pub target_selector: String,
+    #[serde(rename = "sourceFingerprint")]
+    pub source_fingerprint: String,
+    #[serde(rename = "targetFingerprint")]
+    pub target_fingerprint: String,
 }
 
 impl DragAndDropRequest {
-    pub fn new(source_selector: String, target_selector: String) -> DragAndDropRequest {
+    pub fn new(source_fingerprint: String, target_fingerprint: String) -> DragAndDropRequest {
         DragAndDropRequest {
-            source_selector,
-            target_selector,
+            source_fingerprint,
+            target_fingerprint,
         }
     }
 }

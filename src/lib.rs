@@ -217,22 +217,22 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
             (
                 "tabElement",
                 "Tab Element",
-                "Get element information from tab by selector.",
+                "Get element information from tab by fingerprint.",
             ),
             (
                 "tabElementText",
                 "Tab Element Text",
-                "Get text content of element in tab by selector.",
+                "Get text content of element in tab by fingerprint.",
             ),
             (
                 "tabClickElement",
                 "Tab Click Element",
-                "Click an element in tab by selector.",
+                "Click an element in tab by fingerprint.",
             ),
             (
                 "tabWaitForElement",
                 "Tab Wait For Element",
-                "Wait for an element in tab by selector.",
+                "Wait for an element in tab by fingerprint.",
             ),
             (
                 "tabElementScreenshot",
@@ -253,7 +253,7 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
             (
                 "tabElementValue",
                 "Tab Element Value",
-                "Get element value in tab by selector.",
+                "Get element value in tab by fingerprint.",
             ),
             (
                 "tabSubmitForm",
@@ -269,22 +269,22 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
             (
                 "waitForElement",
                 "Wait For Element",
-                "Wait for an element by selector.",
+                "Wait for an element by fingerprint.",
             ),
             (
                 "clickElement",
                 "Click Element",
-                "Click an element by selector.",
+                "Click an element by fingerprint.",
             ),
             (
                 "elementText",
                 "Element Text",
-                "Get text content of element by selector.",
+                "Get text content of element by fingerprint.",
             ),
             (
                 "elementValue",
                 "Element Value",
-                "Get value of element by selector.",
+                "Get value of element by fingerprint.",
             ),
             (
                 "elementByText",
@@ -294,7 +294,7 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
             (
                 "elementTextContent",
                 "Element Text Content",
-                "Get trimmed text content for selector.",
+                "Get trimmed text content for fingerprint.",
             ),
             (
                 "tabElementByText",
@@ -304,7 +304,7 @@ fn floorp_plugin_functions() -> Vec<PluginFunction> {
             (
                 "tabElementTextContent",
                 "Tab Element Text Content",
-                "Get trimmed text content for selector in tab.",
+                "Get trimmed text content for fingerprint in tab.",
             ),
             ("fillForm", "Fill Form", "Fill a form element."),
             ("submitForm", "Submit Form", "Submit a form element."),
@@ -672,10 +672,8 @@ fn op_floorp_wait_for_element(
     #[string] timeout_ms: Option<String>,
 ) -> Result<String, JsErrorBox> {
     let timeout = timeout_ms.and_then(|s| s.parse::<i32>().ok());
-    let body = openapi::models::WaitForElementRequest {
-        selector: selector.clone(),
-        timeout,
-    };
+    let mut body = openapi::models::WaitForElementRequest::new(selector.clone());
+    body.timeout = timeout;
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::wait_for_scraper_element(&c, &id, body)
@@ -688,7 +686,7 @@ fn op_floorp_click_element(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::click_scraper_element(&c, &id, body)
@@ -807,7 +805,7 @@ fn op_floorp_submit_form(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::submit_scraper_form(&c, &id, body)
@@ -820,7 +818,7 @@ fn op_floorp_clear_input(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::clear_scraper_input(&c, &id, body)
@@ -950,7 +948,7 @@ fn op_floorp_tab_click_element(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::click_tab_element(&c, &id, body)
@@ -965,10 +963,8 @@ fn op_floorp_tab_wait_for_element(
     #[string] timeout_ms: Option<String>,
 ) -> Result<String, JsErrorBox> {
     let timeout = timeout_ms.and_then(|s| s.parse::<i32>().ok());
-    let body = openapi::models::WaitForElementRequest {
-        selector: selector.clone(),
-        timeout,
-    };
+    let mut body = openapi::models::WaitForElementRequest::new(selector.clone());
+    body.timeout = timeout;
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::wait_for_tab_element(&c, &id, body)
@@ -1051,7 +1047,7 @@ fn op_floorp_tab_set_inner_html(
     #[string] selector: String,
     #[string] html: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SetInnerHtmlRequest { selector, html };
+    let body = openapi::models::SetInnerHtmlRequest::new(selector, html);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::set_tab_inner_html(&c, &id, body)
@@ -1065,7 +1061,7 @@ fn op_floorp_tab_set_text_content(
     #[string] selector: String,
     #[string] text: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SetTextContentRequest { selector, text };
+    let body = openapi::models::SetTextContentRequest::new(selector, text);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::set_tab_text_content(&c, &id, body)
@@ -1079,11 +1075,7 @@ fn op_floorp_tab_dispatch_event(
     #[string] selector: String,
     #[string] event_type: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::DispatchEventRequest {
-        selector,
-        event_type,
-        options: None,
-    };
+    let body = openapi::models::DispatchEventRequest::new(selector, event_type);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::dispatch_tab_event(&c, &id, body)
@@ -1111,7 +1103,7 @@ fn op_floorp_tab_submit_form(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::submit_tab_form(&c, &id, body)
@@ -1124,7 +1116,7 @@ fn op_floorp_tab_clear_input(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::clear_tab_input(&c, &id, body)
@@ -1305,28 +1297,28 @@ make_plugin!(
     op_floorp_tab_element,
     "tabElement",
     "Tab Element",
-    "Get element information from tab by selector."
+    "Get element information from tab by fingerprint."
 );
 make_plugin!(
     floorp_tab_element_text_plugin,
     op_floorp_tab_element_text,
     "tabElementText",
     "Tab Element Text",
-    "Get text content of element in tab by selector."
+    "Get text content of element in tab by fingerprint."
 );
 make_plugin!(
     floorp_tab_click_element_plugin,
     op_floorp_tab_click_element,
     "tabClickElement",
     "Tab Click Element",
-    "Click an element in tab by selector."
+    "Click an element in tab by fingerprint."
 );
 make_plugin!(
     floorp_tab_wait_for_element_plugin,
     op_floorp_tab_wait_for_element,
     "tabWaitForElement",
     "Tab Wait For Element",
-    "Wait for an element in tab by selector."
+    "Wait for an element in tab by fingerprint."
 );
 make_plugin!(
     floorp_tab_element_screenshot_plugin,
@@ -1382,7 +1374,7 @@ make_plugin!(
     op_floorp_tab_element_value,
     "tabElementValue",
     "Tab Element Value",
-    "Get element value in tab by selector."
+    "Get element value in tab by fingerprint."
 );
 make_plugin!(
     floorp_tab_submit_form_plugin,
@@ -1417,28 +1409,28 @@ make_plugin!(
     op_floorp_wait_for_element,
     "waitForElement",
     "Wait For Element",
-    "Wait for an element by selector."
+    "Wait for an element by fingerprint."
 );
 make_plugin!(
     floorp_click_element_plugin,
     op_floorp_click_element,
     "clickElement",
     "Click Element",
-    "Click an element by selector."
+    "Click an element by fingerprint."
 );
 make_plugin!(
     floorp_element_text_plugin,
     op_floorp_element_text,
     "elementText",
     "Element Text",
-    "Get text content of element by selector."
+    "Get text content of element by fingerprint."
 );
 make_plugin!(
     floorp_element_value_plugin,
     op_floorp_element_value,
     "elementValue",
     "Element Value",
-    "Get value of element by selector."
+    "Get value of element by fingerprint."
 );
 make_plugin!(
     floorp_element_by_text_plugin,
@@ -1452,7 +1444,7 @@ make_plugin!(
     op_floorp_element_text_content,
     "elementTextContent",
     "Element Text Content",
-    "Get trimmed text content for selector."
+    "Get trimmed text content for fingerprint."
 );
 make_plugin!(
     floorp_tab_element_by_text_plugin,
@@ -1466,7 +1458,7 @@ make_plugin!(
     op_floorp_tab_element_text_content,
     "tabElementTextContent",
     "Tab Element Text Content",
-    "Get trimmed text content for selector in tab."
+    "Get trimmed text content for fingerprint in tab."
 );
 make_plugin!(
     floorp_fill_form_plugin,
@@ -1670,7 +1662,7 @@ fn op_floorp_select_option(
     #[string] selector: String,
     #[string] value: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectOptionRequest { selector, value };
+    let body = openapi::models::SelectOptionRequest::new(selector, value);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::select_scraper_option(&c, &id, body)
@@ -1685,10 +1677,7 @@ fn op_floorp_set_checked(
     #[string] checked: String, // "true" or "false"
 ) -> Result<String, JsErrorBox> {
     let checked_bool = checked.parse::<bool>().unwrap_or(false);
-    let body = openapi::models::SetCheckedRequest {
-        selector,
-        checked: checked_bool,
-    };
+    let body = openapi::models::SetCheckedRequest::new(selector, checked_bool);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::set_scraper_checked(&c, &id, body)
@@ -1698,7 +1687,7 @@ fn op_floorp_set_checked(
 #[op2]
 #[string]
 fn op_floorp_hover(#[string] id: String, #[string] selector: String) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::hover_scraper_element(&c, &id, body)
@@ -1711,7 +1700,7 @@ fn op_floorp_scroll_to(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::scroll_to_scraper_element(&c, &id, body)
@@ -1734,7 +1723,7 @@ fn op_floorp_double_click(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::double_click_scraper_element(&c, &id, body)
@@ -1747,7 +1736,7 @@ fn op_floorp_right_click(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::right_click_scraper_element(&c, &id, body)
@@ -1757,7 +1746,7 @@ fn op_floorp_right_click(
 #[op2]
 #[string]
 fn op_floorp_focus(#[string] id: String, #[string] selector: String) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::focus_scraper_element(&c, &id, body)
@@ -1771,10 +1760,7 @@ fn op_floorp_drag_and_drop(
     #[string] source: String,
     #[string] target: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::DragAndDropRequest {
-        source_selector: source,
-        target_selector: target,
-    };
+    let body = openapi::models::DragAndDropRequest::new(source, target);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::drag_and_drop_scraper_element(&c, &id, body)
@@ -1897,7 +1883,7 @@ fn op_floorp_tab_select_option(
     #[string] selector: String,
     #[string] value: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectOptionRequest { selector, value };
+    let body = openapi::models::SelectOptionRequest::new(selector, value);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::select_tab_option(&c, &id, body)
@@ -1912,10 +1898,7 @@ fn op_floorp_tab_set_checked(
     #[string] checked: String,
 ) -> Result<String, JsErrorBox> {
     let checked_bool = checked.parse::<bool>().unwrap_or(false);
-    let body = openapi::models::SetCheckedRequest {
-        selector,
-        checked: checked_bool,
-    };
+    let body = openapi::models::SetCheckedRequest::new(selector, checked_bool);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::set_tab_checked(&c, &id, body)
@@ -1928,7 +1911,7 @@ fn op_floorp_tab_hover(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::hover_tab_element(&c, &id, body)
@@ -1941,7 +1924,7 @@ fn op_floorp_tab_scroll_to(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::scroll_to_tab_element(&c, &id, body)
@@ -1964,7 +1947,7 @@ fn op_floorp_tab_double_click(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::double_click_tab_element(&c, &id, body)
@@ -1977,7 +1960,7 @@ fn op_floorp_tab_right_click(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::right_click_tab_element(&c, &id, body)
@@ -1990,7 +1973,7 @@ fn op_floorp_tab_focus(
     #[string] id: String,
     #[string] selector: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::SelectorRequest { selector };
+    let body = openapi::models::FingerprintRequest::new(selector);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::focus_tab_element(&c, &id, body)
@@ -2004,10 +1987,7 @@ fn op_floorp_tab_drag_and_drop(
     #[string] source: String,
     #[string] target: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::DragAndDropRequest {
-        source_selector: source,
-        target_selector: target,
-    };
+    let body = openapi::models::DragAndDropRequest::new(source, target);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::drag_and_drop_tab_element(&c, &id, body)
@@ -2439,12 +2419,7 @@ fn op_floorp_input(
     #[string] selector: String,
     #[string] value: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::InputRequest {
-        selector,
-        value,
-        typing_mode: None,
-        typing_delay_ms: None,
-    };
+    let body = openapi::models::InputRequest::new(selector, value);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::input_scraper_element(&c, &id, body)
@@ -2459,12 +2434,9 @@ fn op_floorp_tab_input(
     #[string] value: String,
     typing_mode: bool,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::InputRequest {
-        selector,
-        value,
-        typing_mode: Some(typing_mode),
-        typing_delay_ms: if typing_mode { Some(10) } else { None },
-    };
+    let mut body = openapi::models::InputRequest::new(selector, value);
+    body.typing_mode = Some(typing_mode);
+    body.typing_delay_ms = if typing_mode { Some(10) } else { None };
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::input_tab_element(&c, &id, body)
@@ -2504,7 +2476,7 @@ fn op_floorp_upload_file(
     #[string] selector: String,
     #[string] file_path: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::UploadFileRequest { selector, file_path };
+    let body = openapi::models::UploadFileRequest::new(selector, file_path);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::upload_scraper_file(&c, &id, body)
@@ -2518,7 +2490,7 @@ fn op_floorp_tab_upload_file(
     #[string] selector: String,
     #[string] file_path: String,
 ) -> Result<String, JsErrorBox> {
-    let body = openapi::models::UploadFileRequest { selector, file_path };
+    let body = openapi::models::UploadFileRequest::new(selector, file_path);
     run_blocking_json(move || {
         let c = cfg(None);
         openapi::apis::default_api::upload_tab_file(&c, &id, body)

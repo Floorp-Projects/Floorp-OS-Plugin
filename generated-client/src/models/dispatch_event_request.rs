@@ -13,9 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DispatchEventRequest {
-    /// CSS selector for the element
-    #[serde(rename = "selector")]
-    pub selector: String,
+    /// Element fingerprint
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     /// Event type to dispatch (e.g., 'click', 'input', 'change')
     #[serde(rename = "eventType")]
     pub event_type: String,
@@ -24,9 +24,9 @@ pub struct DispatchEventRequest {
 }
 
 impl DispatchEventRequest {
-    pub fn new(selector: String, event_type: String) -> DispatchEventRequest {
+    pub fn new(fingerprint: String, event_type: String) -> DispatchEventRequest {
         DispatchEventRequest {
-            selector,
+            fingerprint,
             event_type,
             options: None,
         }

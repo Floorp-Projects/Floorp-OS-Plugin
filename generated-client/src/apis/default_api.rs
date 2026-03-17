@@ -944,10 +944,10 @@ pub fn check_tab_instance_exists(configuration: &configuration::Configuration, i
     }
 }
 
-pub fn clear_scraper_input(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClearScraperInputError>> {
+pub fn clear_scraper_input(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<ClearScraperInputError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/clearInput", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -958,7 +958,7 @@ pub fn clear_scraper_input(configuration: &configuration::Configuration, id: &st
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -985,10 +985,10 @@ pub fn clear_scraper_input(configuration: &configuration::Configuration, id: &st
     }
 }
 
-pub fn clear_tab_input(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClearTabInputError>> {
+pub fn clear_tab_input(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<ClearTabInputError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/clearInput", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -999,7 +999,7 @@ pub fn clear_tab_input(configuration: &configuration::Configuration, id: &str, s
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -1026,10 +1026,10 @@ pub fn clear_tab_input(configuration: &configuration::Configuration, id: &str, s
     }
 }
 
-pub fn click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClickScraperElementError>> {
+pub fn click_scraper_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<ClickScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/click", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1040,7 +1040,7 @@ pub fn click_scraper_element(configuration: &configuration::Configuration, id: &
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -1067,10 +1067,10 @@ pub fn click_scraper_element(configuration: &configuration::Configuration, id: &
     }
 }
 
-pub fn click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ClickTabElementError>> {
+pub fn click_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<ClickTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/click", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1081,7 +1081,7 @@ pub fn click_tab_element(configuration: &configuration::Configuration, id: &str,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -1462,10 +1462,10 @@ pub fn dispatch_tab_event(configuration: &configuration::Configuration, id: &str
     }
 }
 
-pub fn double_click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<DoubleClickScraperElementError>> {
+pub fn double_click_scraper_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<DoubleClickScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/doubleClick", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1476,7 +1476,7 @@ pub fn double_click_scraper_element(configuration: &configuration::Configuration
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -1503,10 +1503,10 @@ pub fn double_click_scraper_element(configuration: &configuration::Configuration
     }
 }
 
-pub fn double_click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<DoubleClickTabElementError>> {
+pub fn double_click_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<DoubleClickTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/doubleClick", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1517,7 +1517,7 @@ pub fn double_click_tab_element(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -1708,10 +1708,10 @@ pub fn fill_tab_form(configuration: &configuration::Configuration, id: &str, fil
     }
 }
 
-pub fn focus_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<FocusScraperElementError>> {
+pub fn focus_scraper_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<FocusScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/focus", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1722,7 +1722,7 @@ pub fn focus_scraper_element(configuration: &configuration::Configuration, id: &
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -1749,10 +1749,10 @@ pub fn focus_scraper_element(configuration: &configuration::Configuration, id: &
     }
 }
 
-pub fn focus_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<FocusTabElementError>> {
+pub fn focus_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<FocusTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/focus", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -1763,7 +1763,7 @@ pub fn focus_tab_element(configuration: &configuration::Configuration, id: &str,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -2032,16 +2032,16 @@ pub fn get_health(configuration: &configuration::Configuration, ) -> Result<mode
     }
 }
 
-pub fn get_scraper_attribute(configuration: &configuration::Configuration, id: &str, selector: &str, name: &str) -> Result<models::AttributeResponse, Error<GetScraperAttributeError>> {
+pub fn get_scraper_attribute(configuration: &configuration::Configuration, id: &str, fingerprint: &str, name: &str) -> Result<models::AttributeResponse, Error<GetScraperAttributeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
     let p_query_name = name;
 
     let uri_str = format!("{}/scraper/instances/{id}/attribute", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     req_builder = req_builder.query(&[("name", &p_query_name.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -2155,15 +2155,15 @@ pub fn get_scraper_element_by_text(configuration: &configuration::Configuration,
     }
 }
 
-pub fn get_scraper_element_text(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetScraperElementTextError>> {
+pub fn get_scraper_element_text(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::TextResponse, Error<GetScraperElementTextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/elementText", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2196,15 +2196,15 @@ pub fn get_scraper_element_text(configuration: &configuration::Configuration, id
     }
 }
 
-pub fn get_scraper_element_text_content(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetScraperElementTextContentError>> {
+pub fn get_scraper_element_text_content(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::TextResponse, Error<GetScraperElementTextContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/elementTextContent", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2237,15 +2237,15 @@ pub fn get_scraper_element_text_content(configuration: &configuration::Configura
     }
 }
 
-pub fn get_scraper_element_value(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ValueResponse, Error<GetScraperElementValueError>> {
+pub fn get_scraper_element_value(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::ValueResponse, Error<GetScraperElementValueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/value", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2278,15 +2278,15 @@ pub fn get_scraper_element_value(configuration: &configuration::Configuration, i
     }
 }
 
-pub fn get_scraper_elements(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetScraperElements200Response, Error<GetScraperElementsError>> {
+pub fn get_scraper_elements(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::GetScraperElements200Response, Error<GetScraperElementsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/elements", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2436,16 +2436,16 @@ pub fn get_scraper_title(configuration: &configuration::Configuration, id: &str)
     }
 }
 
-pub fn get_tab_attribute(configuration: &configuration::Configuration, id: &str, selector: &str, name: &str) -> Result<models::AttributeResponse, Error<GetTabAttributeError>> {
+pub fn get_tab_attribute(configuration: &configuration::Configuration, id: &str, fingerprint: &str, name: &str) -> Result<models::AttributeResponse, Error<GetTabAttributeError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
     let p_query_name = name;
 
     let uri_str = format!("{}/tabs/instances/{id}/attribute", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     req_builder = req_builder.query(&[("name", &p_query_name.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -2518,15 +2518,15 @@ pub fn get_tab_cookies(configuration: &configuration::Configuration, id: &str) -
     }
 }
 
-pub fn get_tab_element(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetTabElement200Response, Error<GetTabElementError>> {
+pub fn get_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::GetTabElement200Response, Error<GetTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/element", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2600,15 +2600,15 @@ pub fn get_tab_element_by_text(configuration: &configuration::Configuration, id:
     }
 }
 
-pub fn get_tab_element_text(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetTabElementTextError>> {
+pub fn get_tab_element_text(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::TextResponse, Error<GetTabElementTextError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/elementText", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2641,15 +2641,15 @@ pub fn get_tab_element_text(configuration: &configuration::Configuration, id: &s
     }
 }
 
-pub fn get_tab_element_text_content(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::TextResponse, Error<GetTabElementTextContentError>> {
+pub fn get_tab_element_text_content(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::TextResponse, Error<GetTabElementTextContentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/elementTextContent", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2682,15 +2682,15 @@ pub fn get_tab_element_text_content(configuration: &configuration::Configuration
     }
 }
 
-pub fn get_tab_element_value(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ValueResponse, Error<GetTabElementValueError>> {
+pub fn get_tab_element_value(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::ValueResponse, Error<GetTabElementValueError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/value", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2723,15 +2723,15 @@ pub fn get_tab_element_value(configuration: &configuration::Configuration, id: &
     }
 }
 
-pub fn get_tab_elements(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::GetScraperElements200Response, Error<GetTabElementsError>> {
+pub fn get_tab_elements(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::GetScraperElements200Response, Error<GetTabElementsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/elements", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -2920,10 +2920,10 @@ pub fn get_tab_title(configuration: &configuration::Configuration, id: &str) -> 
     }
 }
 
-pub fn hover_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<HoverScraperElementError>> {
+pub fn hover_scraper_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<HoverScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/hover", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -2934,7 +2934,7 @@ pub fn hover_scraper_element(configuration: &configuration::Configuration, id: &
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -2961,10 +2961,10 @@ pub fn hover_scraper_element(configuration: &configuration::Configuration, id: &
     }
 }
 
-pub fn hover_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<HoverTabElementError>> {
+pub fn hover_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<HoverTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/hover", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -2975,7 +2975,7 @@ pub fn hover_tab_element(configuration: &configuration::Configuration, id: &str,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -3084,15 +3084,15 @@ pub fn input_tab_element(configuration: &configuration::Configuration, id: &str,
     }
 }
 
-pub fn is_scraper_enabled(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::EnabledResponse, Error<IsScraperEnabledError>> {
+pub fn is_scraper_enabled(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::EnabledResponse, Error<IsScraperEnabledError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/isEnabled", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -3125,15 +3125,15 @@ pub fn is_scraper_enabled(configuration: &configuration::Configuration, id: &str
     }
 }
 
-pub fn is_scraper_visible(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::VisibleResponse, Error<IsScraperVisibleError>> {
+pub fn is_scraper_visible(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::VisibleResponse, Error<IsScraperVisibleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/isVisible", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -3166,15 +3166,15 @@ pub fn is_scraper_visible(configuration: &configuration::Configuration, id: &str
     }
 }
 
-pub fn is_tab_enabled(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::EnabledResponse, Error<IsTabEnabledError>> {
+pub fn is_tab_enabled(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::EnabledResponse, Error<IsTabEnabledError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/isEnabled", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -3207,15 +3207,15 @@ pub fn is_tab_enabled(configuration: &configuration::Configuration, id: &str, se
     }
 }
 
-pub fn is_tab_visible(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::VisibleResponse, Error<IsTabVisibleError>> {
+pub fn is_tab_visible(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::VisibleResponse, Error<IsTabVisibleError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/isVisible", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -3487,10 +3487,10 @@ pub fn press_tab_key(configuration: &configuration::Configuration, id: &str, pre
     }
 }
 
-pub fn right_click_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<RightClickScraperElementError>> {
+pub fn right_click_scraper_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<RightClickScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/rightClick", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3501,7 +3501,7 @@ pub fn right_click_scraper_element(configuration: &configuration::Configuration,
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -3528,10 +3528,10 @@ pub fn right_click_scraper_element(configuration: &configuration::Configuration,
     }
 }
 
-pub fn right_click_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<RightClickTabElementError>> {
+pub fn right_click_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<RightClickTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/rightClick", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3542,7 +3542,7 @@ pub fn right_click_tab_element(configuration: &configuration::Configuration, id:
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -3647,10 +3647,10 @@ pub fn save_tab_pdf(configuration: &configuration::Configuration, id: &str) -> R
     }
 }
 
-pub fn scroll_to_scraper_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ScrollToScraperElementError>> {
+pub fn scroll_to_scraper_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<ScrollToScraperElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/scrollTo", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3661,7 +3661,7 @@ pub fn scroll_to_scraper_element(configuration: &configuration::Configuration, i
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -3688,10 +3688,10 @@ pub fn scroll_to_scraper_element(configuration: &configuration::Configuration, i
     }
 }
 
-pub fn scroll_to_tab_element(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<ScrollToTabElementError>> {
+pub fn scroll_to_tab_element(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<ScrollToTabElementError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/scrollTo", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -3702,7 +3702,7 @@ pub fn scroll_to_tab_element(configuration: &configuration::Configuration, id: &
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -4139,10 +4139,10 @@ pub fn set_tab_text_content(configuration: &configuration::Configuration, id: &s
     }
 }
 
-pub fn submit_scraper_form(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<SubmitScraperFormError>> {
+pub fn submit_scraper_form(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<SubmitScraperFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/scraper/instances/{id}/submit", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -4153,7 +4153,7 @@ pub fn submit_scraper_form(configuration: &configuration::Configuration, id: &st
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -4180,10 +4180,10 @@ pub fn submit_scraper_form(configuration: &configuration::Configuration, id: &st
     }
 }
 
-pub fn submit_tab_form(configuration: &configuration::Configuration, id: &str, selector_request: models::SelectorRequest) -> Result<models::OkResponse, Error<SubmitTabFormError>> {
+pub fn submit_tab_form(configuration: &configuration::Configuration, id: &str, fingerprint_request: models::FingerprintRequest) -> Result<models::OkResponse, Error<SubmitTabFormError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_selector_request = selector_request;
+    let p_body_fingerprint_request = fingerprint_request;
 
     let uri_str = format!("{}/tabs/instances/{id}/submit", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -4194,7 +4194,7 @@ pub fn submit_tab_form(configuration: &configuration::Configuration, id: &str, s
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_selector_request);
+    req_builder = req_builder.json(&p_body_fingerprint_request);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req)?;
@@ -4375,15 +4375,15 @@ pub fn switch_to_workspace(configuration: &configuration::Configuration, workspa
     }
 }
 
-pub fn take_scraper_element_screenshot(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ImageResponse, Error<TakeScraperElementScreenshotError>> {
+pub fn take_scraper_element_screenshot(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::ImageResponse, Error<TakeScraperElementScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/scraper/instances/{id}/elementScreenshot", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -4535,15 +4535,15 @@ pub fn take_scraper_screenshot(configuration: &configuration::Configuration, id:
     }
 }
 
-pub fn take_tab_element_screenshot(configuration: &configuration::Configuration, id: &str, selector: &str) -> Result<models::ImageResponse, Error<TakeTabElementScreenshotError>> {
+pub fn take_tab_element_screenshot(configuration: &configuration::Configuration, id: &str, fingerprint: &str) -> Result<models::ImageResponse, Error<TakeTabElementScreenshotError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_selector = selector;
+    let p_query_fingerprint = fingerprint;
 
     let uri_str = format!("{}/tabs/instances/{id}/elementScreenshot", configuration.base_path, id=crate::apis::urlencode(p_path_id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    req_builder = req_builder.query(&[("selector", &p_query_selector.to_string())]);
+    req_builder = req_builder.query(&[("fingerprint", &p_query_fingerprint.to_string())]);
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }

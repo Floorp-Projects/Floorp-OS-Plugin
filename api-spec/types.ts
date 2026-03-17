@@ -84,8 +84,8 @@ export interface HTMLResponse {
 }
 
 // Element Operations
-export interface SelectorRequest {
-  selector: string;
+export interface FingerprintRequest {
+  fingerprint: string;
 }
 
 export interface TextResponse {
@@ -97,11 +97,12 @@ export interface ValueResponse {
 }
 
 export interface WaitForElementRequest {
-  selector: string;
+  fingerprint: string;
   timeout?: number;
 }
 
 export interface FoundResponse {
+  ok: boolean;
   found: boolean;
 }
 
@@ -116,7 +117,7 @@ export interface RegionScreenshotRequest {
 
 // Form Operations
 export interface FillFormRequest {
-  formData: Record<string, string>; // CSS selector -> value mapping
+  formData: Record<string, string>; // fingerprint -> value mapping
 }
 
 // Tab Manager Specific Types

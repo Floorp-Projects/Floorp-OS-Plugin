@@ -13,18 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SetInnerHtmlRequest {
-    /// CSS selector for the element
-    #[serde(rename = "selector")]
-    pub selector: String,
+    /// Element fingerprint
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     /// HTML content to set
     #[serde(rename = "html")]
     pub html: String,
 }
 
 impl SetInnerHtmlRequest {
-    pub fn new(selector: String, html: String) -> SetInnerHtmlRequest {
+    pub fn new(fingerprint: String, html: String) -> SetInnerHtmlRequest {
         SetInnerHtmlRequest {
-            selector,
+            fingerprint,
             html,
         }
     }

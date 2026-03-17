@@ -13,18 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UploadFileRequest {
-    /// CSS selector for the file input element
-    #[serde(rename = "selector")]
-    pub selector: String,
+    /// Element fingerprint for the file input element
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     /// Absolute path to the file to upload
     #[serde(rename = "filePath")]
     pub file_path: String,
 }
 
 impl UploadFileRequest {
-    pub fn new(selector: String, file_path: String) -> UploadFileRequest {
+    pub fn new(fingerprint: String, file_path: String) -> UploadFileRequest {
         UploadFileRequest {
-            selector,
+            fingerprint,
             file_path,
         }
     }

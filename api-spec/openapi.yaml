@@ -334,9 +334,9 @@ paths:
       operationId: getScraperElementText
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the element
+          description: Element fingerprint
           required: true
           schema:
             type: string
@@ -354,7 +354,7 @@ paths:
       operationId: getScraperElements
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -393,11 +393,11 @@ paths:
 
   /scraper/instances/{id}/elementTextContent:
     get:
-      summary: Get trimmed text content for selector
+      summary: Get trimmed text content for fingerprint
       operationId: getScraperElementTextContent
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -421,7 +421,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Click result
@@ -470,9 +470,9 @@ paths:
       operationId: takeScraperElementScreenshot
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the element
+          description: Element fingerprint
           required: true
           schema:
             type: string
@@ -544,9 +544,9 @@ paths:
       operationId: getScraperElementValue
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the form element
+          description: Element fingerprint for the form element
           required: true
           schema:
             type: string
@@ -569,7 +569,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Form submission result
@@ -589,7 +589,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Input clear result
@@ -604,7 +604,7 @@ paths:
       operationId: getScraperAttribute
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -628,7 +628,7 @@ paths:
       operationId: isScraperVisible
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -647,7 +647,7 @@ paths:
       operationId: isScraperEnabled
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -711,7 +711,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Hover result
@@ -731,7 +731,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Scroll result
@@ -765,7 +765,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Double click result
@@ -785,7 +785,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Right click result
@@ -805,7 +805,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Focus result
@@ -1208,13 +1208,13 @@ paths:
 
   /tabs/instances/{id}/element:
     get:
-      summary: Get element HTML for selector in tab instance
+      summary: Get element HTML for fingerprint in tab instance
       operationId: getTabElement
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the element
+          description: Element fingerprint
           required: true
           schema:
             type: string
@@ -1236,9 +1236,9 @@ paths:
       operationId: getTabElementText
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the element
+          description: Element fingerprint
           required: true
           schema:
             type: string
@@ -1256,7 +1256,7 @@ paths:
       operationId: getTabElements
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -1295,11 +1295,11 @@ paths:
 
   /tabs/instances/{id}/elementTextContent:
     get:
-      summary: Get trimmed text content for selector in tab
+      summary: Get trimmed text content for fingerprint in tab
       operationId: getTabElementTextContent
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -1323,7 +1323,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Click result
@@ -1372,9 +1372,9 @@ paths:
       operationId: takeTabElementScreenshot
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the element
+          description: Element fingerprint
           required: true
           schema:
             type: string
@@ -1446,9 +1446,9 @@ paths:
       operationId: getTabElementValue
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
-          description: CSS selector for the form element
+          description: Element fingerprint for the form element
           required: true
           schema:
             type: string
@@ -1471,7 +1471,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Form submission result
@@ -1491,7 +1491,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Input clear result
@@ -1506,7 +1506,7 @@ paths:
       operationId: getTabAttribute
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -1530,7 +1530,7 @@ paths:
       operationId: isTabVisible
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -1549,7 +1549,7 @@ paths:
       operationId: isTabEnabled
       parameters:
         - $ref: "#/components/parameters/InstanceId"
-        - name: selector
+        - name: fingerprint
           in: query
           required: true
           schema:
@@ -1613,7 +1613,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Hover result
@@ -1633,7 +1633,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Scroll result
@@ -1667,7 +1667,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Double click result
@@ -1687,7 +1687,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Right click result
@@ -1707,7 +1707,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/SelectorRequest"
+              $ref: "#/components/schemas/FingerprintRequest"
       responses:
         "200":
           description: Focus result
@@ -2187,14 +2187,14 @@ components:
           nullable: true
 
     # Element Operations
-    SelectorRequest:
+    FingerprintRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector
+          description: Element fingerprint
       required:
-        - selector
+        - fingerprint
 
     TextResponse:
       type: object
@@ -2223,23 +2223,27 @@ components:
     WaitForElementRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector to wait for
+          description: Element fingerprint to wait for
         timeout:
           type: integer
           description: Timeout in milliseconds
           default: 5000
       required:
-        - selector
+        - fingerprint
 
     FoundResponse:
       type: object
       properties:
+        ok:
+          type: boolean
+          description: Whether waiting completed successfully
         found:
           type: boolean
           description: Whether the element was found
       required:
+        - ok
         - found
 
     # Screenshots
@@ -2265,7 +2269,7 @@ components:
           type: object
           additionalProperties:
             type: string
-          description: Map of CSS selectors to values
+          description: Map of element fingerprints to values
       required:
         - formData
 
@@ -2422,35 +2426,35 @@ components:
     SelectOptionRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
         value:
           type: string
       required:
-        - selector
+        - fingerprint
         - value
 
     SetCheckedRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
         checked:
           type: boolean
       required:
-        - selector
+        - fingerprint
         - checked
 
     DragAndDropRequest:
       type: object
       properties:
-        sourceSelector:
+        sourceFingerprint:
           type: string
-        targetSelector:
+        targetFingerprint:
           type: string
       required:
-        - sourceSelector
-        - targetSelector
+        - sourceFingerprint
+        - targetFingerprint
 
     WaitForNetworkIdleRequest:
       type: object
@@ -2463,35 +2467,35 @@ components:
     SetInnerHTMLRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector for the element
+          description: Element fingerprint
         html:
           type: string
           description: HTML content to set
       required:
-        - selector
+        - fingerprint
         - html
 
     SetTextContentRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector for the element
+          description: Element fingerprint
         text:
           type: string
           description: Text content to set
       required:
-        - selector
+        - fingerprint
         - text
 
     DispatchEventRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector for the element
+          description: Element fingerprint
         eventType:
           type: string
           description: Event type to dispatch (e.g., 'click', 'input', 'change')
@@ -2505,15 +2509,15 @@ components:
               type: boolean
               default: true
       required:
-        - selector
+        - fingerprint
         - eventType
 
     InputRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector for the input element
+          description: Element fingerprint for the input element
         value:
           type: string
           description: Value to type
@@ -2526,7 +2530,7 @@ components:
           description: Delay between keystrokes in milliseconds
           default: 50
       required:
-        - selector
+        - fingerprint
         - value
 
     PressKeyRequest:
@@ -2541,14 +2545,14 @@ components:
     UploadFileRequest:
       type: object
       properties:
-        selector:
+        fingerprint:
           type: string
-          description: CSS selector for the file input element
+          description: Element fingerprint for the file input element
         filePath:
           type: string
           description: Absolute path to the file to upload
       required:
-        - selector
+        - fingerprint
         - filePath
 
     # Workspace Schemas

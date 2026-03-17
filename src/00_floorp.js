@@ -15,22 +15,22 @@ function floorpScraperHtml(id) {
 function floorpScraperUri(id) {
   return Deno.core.ops.op_floorp_scraper_uri(id);
 }
-function floorpGetElements(id, selector) {
-  return Deno.core.ops.op_floorp_get_elements(id, selector);
+function floorpGetElements(id, fingerprint) {
+  return Deno.core.ops.op_floorp_get_elements(id, fingerprint);
 }
-function floorpTabGetElements(id, selector) {
-  return Deno.core.ops.op_floorp_tab_get_elements(id, selector);
+function floorpTabGetElements(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_get_elements(id, fingerprint);
 }
 // Input / Press Key / Upload File functions
-function floorpInput(id, selector, value) {
-  return Deno.core.ops.op_floorp_input(id, selector, value);
+function floorpInput(id, fingerprint, value) {
+  return Deno.core.ops.op_floorp_input(id, fingerprint, value);
 }
-function floorpTabInput(id, selector, value, typingMode) {
+function floorpTabInput(id, fingerprint, value, typingMode) {
   var result = Deno.core.ops.op_floorp_tab_input(
     id,
-    selector,
+    fingerprint,
     value,
-    typingMode === true
+    typingMode === true,
   );
   // Parse result and convert null to false for consistency
   try {
@@ -46,54 +46,54 @@ function floorpPressKey(id, key) {
 function floorpTabPressKey(id, key) {
   return Deno.core.ops.op_floorp_tab_press_key(id, key);
 }
-function floorpUploadFile(id, selector, filePath) {
-  return Deno.core.ops.op_floorp_upload_file(id, selector, filePath);
+function floorpUploadFile(id, fingerprint, filePath) {
+  return Deno.core.ops.op_floorp_upload_file(id, fingerprint, filePath);
 }
-function floorpTabUploadFile(id, selector, filePath) {
-  return Deno.core.ops.op_floorp_tab_upload_file(id, selector, filePath);
+function floorpTabUploadFile(id, fingerprint, filePath) {
+  return Deno.core.ops.op_floorp_tab_upload_file(id, fingerprint, filePath);
 }
-function floorpWaitForElement(id, selector, timeoutMs) {
+function floorpWaitForElement(id, fingerprint, timeoutMs) {
   return Deno.core.ops.op_floorp_wait_for_element(
     id,
-    selector,
-    timeoutMs?.toString()
+    fingerprint,
+    timeoutMs?.toString(),
   );
 }
-function floorpClick(id, selector) {
-  return Deno.core.ops.op_floorp_click_element(id, selector);
+function floorpClick(id, fingerprint) {
+  return Deno.core.ops.op_floorp_click_element(id, fingerprint);
 }
-function floorpElementText(id, selector) {
-  return Deno.core.ops.op_floorp_element_text(id, selector);
+function floorpElementText(id, fingerprint) {
+  return Deno.core.ops.op_floorp_element_text(id, fingerprint);
 }
-function floorpElementValue(id, selector) {
-  return Deno.core.ops.op_floorp_element_value(id, selector);
+function floorpElementValue(id, fingerprint) {
+  return Deno.core.ops.op_floorp_element_value(id, fingerprint);
 }
 function floorpElementByText(id, text) {
   return Deno.core.ops.op_floorp_element_by_text(id, text);
 }
-function floorpElementTextContent(id, selector) {
-  return Deno.core.ops.op_floorp_element_text_content(id, selector);
+function floorpElementTextContent(id, fingerprint) {
+  return Deno.core.ops.op_floorp_element_text_content(id, fingerprint);
 }
 function floorpTabElementByText(id, text) {
   return Deno.core.ops.op_floorp_tab_element_by_text(id, text);
 }
-function floorpTabElementTextContent(id, selector) {
-  return Deno.core.ops.op_floorp_tab_element_text_content(id, selector);
+function floorpTabElementTextContent(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_element_text_content(id, fingerprint);
 }
-function floorpFillForm(id, selector, value) {
-  return Deno.core.ops.op_floorp_fill_form(id, selector, value);
+function floorpFillForm(id, fingerprint, value) {
+  return Deno.core.ops.op_floorp_fill_form(id, fingerprint, value);
 }
-function floorpSubmitForm(id, selector) {
-  return Deno.core.ops.op_floorp_submit_form(id, selector);
+function floorpSubmitForm(id, fingerprint) {
+  return Deno.core.ops.op_floorp_submit_form(id, fingerprint);
 }
-function floorpClearInput(id, selector) {
-  return Deno.core.ops.op_floorp_clear_input(id, selector);
+function floorpClearInput(id, fingerprint) {
+  return Deno.core.ops.op_floorp_clear_input(id, fingerprint);
 }
 function floorpScreenshot(id) {
   return Deno.core.ops.op_floorp_screenshot(id);
 }
-function floorpElementScreenshot(id, selector) {
-  return Deno.core.ops.op_floorp_element_screenshot(id, selector);
+function floorpElementScreenshot(id, fingerprint) {
+  return Deno.core.ops.op_floorp_element_screenshot(id, fingerprint);
 }
 function floorpFullPageScreenshot(id) {
   return Deno.core.ops.op_floorp_fullpage_screenshot(id);
@@ -104,13 +104,13 @@ function floorpRegionScreenshot(id, x, y, w, h) {
     x?.toString(),
     y?.toString(),
     w?.toString(),
-    h?.toString()
+    h?.toString(),
   );
 }
 function floorpCreateTab(url, inBackground) {
   var result = Deno.core.ops.op_floorp_create_tab_instance(
     url,
-    inBackground?.toString()
+    inBackground?.toString(),
   );
   // Parse JSON and return instanceId directly for consistency
   try {
@@ -132,14 +132,14 @@ function floorpTabHtml(id) {
 function floorpTabScreenshot(id) {
   return Deno.core.ops.op_floorp_tab_screenshot(id);
 }
-function floorpTabElement(id, selector) {
-  return Deno.core.ops.op_floorp_tab_element(id, selector);
+function floorpTabElement(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_element(id, fingerprint);
 }
-function floorpTabElementText(id, selector) {
-  return Deno.core.ops.op_floorp_tab_element_text(id, selector);
+function floorpTabElementText(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_element_text(id, fingerprint);
 }
-function floorpTabClick(id, selector) {
-  var result = Deno.core.ops.op_floorp_tab_click_element(id, selector);
+function floorpTabClick(id, fingerprint) {
+  var result = Deno.core.ops.op_floorp_tab_click_element(id, fingerprint);
   // Parse result and convert null to false for consistency
   try {
     var parsed = JSON.parse(result);
@@ -148,25 +148,25 @@ function floorpTabClick(id, selector) {
     return "false";
   }
 }
-function floorpTabWaitForElement(id, selector, timeoutMs) {
+function floorpTabWaitForElement(id, fingerprint, timeoutMs) {
   var result = Deno.core.ops.op_floorp_tab_wait_for_element(
     id,
-    selector,
-    timeoutMs?.toString()
+    fingerprint,
+    timeoutMs?.toString(),
   );
   // Parse result and convert null to false for consistency
   try {
     var parsed = JSON.parse(result);
-    return parsed.ok === true ? "true" : "false";
+    return parsed.ok === true || parsed.found === true ? "true" : "false";
   } catch (e) {
     return "false";
   }
 }
-function floorpTabClearInput(id, selector) {
-  return Deno.core.ops.op_floorp_tab_clear_input(id, selector);
+function floorpTabClearInput(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_clear_input(id, fingerprint);
 }
-function floorpTabElementScreenshot(id, selector) {
-  return Deno.core.ops.op_floorp_tab_element_screenshot(id, selector);
+function floorpTabElementScreenshot(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_element_screenshot(id, fingerprint);
 }
 function floorpTabFullPageScreenshot(id) {
   return Deno.core.ops.op_floorp_tab_fullpage_screenshot(id);
@@ -177,26 +177,26 @@ function floorpTabRegionScreenshot(id, x, y, w, h) {
     x?.toString(),
     y?.toString(),
     w?.toString(),
-    h?.toString()
+    h?.toString(),
   );
 }
-function floorpTabFillForm(id, selector, value) {
-  return Deno.core.ops.op_floorp_tab_fill_form(id, selector, value);
+function floorpTabFillForm(id, fingerprint, value) {
+  return Deno.core.ops.op_floorp_tab_fill_form(id, fingerprint, value);
 }
-function floorpTabSetInnerHTML(id, selector, html) {
-  return Deno.core.ops.op_floorp_tab_set_inner_html(id, selector, html);
+function floorpTabSetInnerHTML(id, fingerprint, html) {
+  return Deno.core.ops.op_floorp_tab_set_inner_html(id, fingerprint, html);
 }
-function floorpTabSetTextContent(id, selector, text) {
-  return Deno.core.ops.op_floorp_tab_set_text_content(id, selector, text);
+function floorpTabSetTextContent(id, fingerprint, text) {
+  return Deno.core.ops.op_floorp_tab_set_text_content(id, fingerprint, text);
 }
-function floorpTabDispatchEvent(id, selector, eventType) {
-  return Deno.core.ops.op_floorp_tab_dispatch_event(id, selector, eventType);
+function floorpTabDispatchEvent(id, fingerprint, eventType) {
+  return Deno.core.ops.op_floorp_tab_dispatch_event(id, fingerprint, eventType);
 }
-function floorpTabElementValue(id, selector) {
-  return Deno.core.ops.op_floorp_tab_element_value(id, selector);
+function floorpTabElementValue(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_element_value(id, fingerprint);
 }
-function floorpTabSubmitForm(id, selector) {
-  return Deno.core.ops.op_floorp_tab_submit_form(id, selector);
+function floorpTabSubmitForm(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_submit_form(id, fingerprint);
 }
 function floorpListBrowserTabs() {
   return Deno.core.ops.op_floorp_list_browser_tabs();
@@ -213,7 +213,7 @@ function floorpBrowserDownloads(limit) {
 function floorpBrowserContext(historyLimit, downloadLimit) {
   return Deno.core.ops.op_floorp_browser_context(
     historyLimit?.toString(),
-    downloadLimit?.toString()
+    downloadLimit?.toString(),
   );
 }
 function floorpAttachToTab(browserId) {
@@ -242,38 +242,42 @@ function floorpCheckScraperInstanceExists(id) {
   return Deno.core.ops.op_floorp_check_scraper_instance_exists(id);
 }
 
-function floorpAttribute(id, selector, name) {
-  return Deno.core.ops.op_floorp_attribute(id, selector, name);
+function floorpAttribute(id, fingerprint, name) {
+  return Deno.core.ops.op_floorp_attribute(id, fingerprint, name);
 }
-function floorpIsVisible(id, selector) {
-  return Deno.core.ops.op_floorp_is_visible(id, selector);
+function floorpIsVisible(id, fingerprint) {
+  return Deno.core.ops.op_floorp_is_visible(id, fingerprint);
 }
-function floorpIsEnabled(id, selector) {
-  return Deno.core.ops.op_floorp_is_enabled(id, selector);
+function floorpIsEnabled(id, fingerprint) {
+  return Deno.core.ops.op_floorp_is_enabled(id, fingerprint);
 }
-function floorpSelectOption(id, selector, value) {
-  return Deno.core.ops.op_floorp_select_option(id, selector, value);
+function floorpSelectOption(id, fingerprint, value) {
+  return Deno.core.ops.op_floorp_select_option(id, fingerprint, value);
 }
-function floorpSetChecked(id, selector, checked) {
-  return Deno.core.ops.op_floorp_set_checked(id, selector, checked?.toString());
+function floorpSetChecked(id, fingerprint, checked) {
+  return Deno.core.ops.op_floorp_set_checked(
+    id,
+    fingerprint,
+    checked?.toString(),
+  );
 }
-function floorpHover(id, selector) {
-  return Deno.core.ops.op_floorp_hover(id, selector);
+function floorpHover(id, fingerprint) {
+  return Deno.core.ops.op_floorp_hover(id, fingerprint);
 }
-function floorpScrollTo(id, selector) {
-  return Deno.core.ops.op_floorp_scroll_to(id, selector);
+function floorpScrollTo(id, fingerprint) {
+  return Deno.core.ops.op_floorp_scroll_to(id, fingerprint);
 }
 function floorpTitle(id) {
   return Deno.core.ops.op_floorp_title(id);
 }
-function floorpDoubleClick(id, selector) {
-  return Deno.core.ops.op_floorp_double_click(id, selector);
+function floorpDoubleClick(id, fingerprint) {
+  return Deno.core.ops.op_floorp_double_click(id, fingerprint);
 }
-function floorpRightClick(id, selector) {
-  return Deno.core.ops.op_floorp_right_click(id, selector);
+function floorpRightClick(id, fingerprint) {
+  return Deno.core.ops.op_floorp_right_click(id, fingerprint);
 }
-function floorpFocus(id, selector) {
-  return Deno.core.ops.op_floorp_focus(id, selector);
+function floorpFocus(id, fingerprint) {
+  return Deno.core.ops.op_floorp_focus(id, fingerprint);
 }
 function floorpDragAndDrop(id, source, target) {
   return Deno.core.ops.op_floorp_drag_and_drop(id, source, target);
@@ -296,46 +300,46 @@ function floorpPdf(id) {
 function floorpWaitForNetworkIdle(id, timeoutMs) {
   return Deno.core.ops.op_floorp_wait_for_network_idle(
     id,
-    timeoutMs?.toString()
+    timeoutMs?.toString(),
   );
 }
 
-function floorpTabAttribute(id, selector, name) {
-  return Deno.core.ops.op_floorp_tab_attribute(id, selector, name);
+function floorpTabAttribute(id, fingerprint, name) {
+  return Deno.core.ops.op_floorp_tab_attribute(id, fingerprint, name);
 }
-function floorpTabIsVisible(id, selector) {
-  return Deno.core.ops.op_floorp_tab_is_visible(id, selector);
+function floorpTabIsVisible(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_is_visible(id, fingerprint);
 }
-function floorpTabIsEnabled(id, selector) {
-  return Deno.core.ops.op_floorp_tab_is_enabled(id, selector);
+function floorpTabIsEnabled(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_is_enabled(id, fingerprint);
 }
-function floorpTabSelectOption(id, selector, value) {
-  return Deno.core.ops.op_floorp_tab_select_option(id, selector, value);
+function floorpTabSelectOption(id, fingerprint, value) {
+  return Deno.core.ops.op_floorp_tab_select_option(id, fingerprint, value);
 }
-function floorpTabSetChecked(id, selector, checked) {
+function floorpTabSetChecked(id, fingerprint, checked) {
   return Deno.core.ops.op_floorp_tab_set_checked(
     id,
-    selector,
-    checked?.toString()
+    fingerprint,
+    checked?.toString(),
   );
 }
-function floorpTabHover(id, selector) {
-  return Deno.core.ops.op_floorp_tab_hover(id, selector);
+function floorpTabHover(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_hover(id, fingerprint);
 }
-function floorpTabScrollTo(id, selector) {
-  return Deno.core.ops.op_floorp_tab_scroll_to(id, selector);
+function floorpTabScrollTo(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_scroll_to(id, fingerprint);
 }
 function floorpTabTitle(id) {
   return Deno.core.ops.op_floorp_tab_title(id);
 }
-function floorpTabDoubleClick(id, selector) {
-  return Deno.core.ops.op_floorp_tab_double_click(id, selector);
+function floorpTabDoubleClick(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_double_click(id, fingerprint);
 }
-function floorpTabRightClick(id, selector) {
-  return Deno.core.ops.op_floorp_tab_right_click(id, selector);
+function floorpTabRightClick(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_right_click(id, fingerprint);
 }
-function floorpTabFocus(id, selector) {
-  return Deno.core.ops.op_floorp_tab_focus(id, selector);
+function floorpTabFocus(id, fingerprint) {
+  return Deno.core.ops.op_floorp_tab_focus(id, fingerprint);
 }
 function floorpTabDragAndDrop(id, source, target) {
   return Deno.core.ops.op_floorp_tab_drag_and_drop(id, source, target);
@@ -358,7 +362,7 @@ function floorpTabPdf(id) {
 function floorpTabWaitForNetworkIdle(id, timeoutMs) {
   var result = Deno.core.ops.op_floorp_tab_wait_for_network_idle(
     id,
-    timeoutMs?.toString()
+    timeoutMs?.toString(),
   );
   // Parse result and convert null to false for consistency
   try {

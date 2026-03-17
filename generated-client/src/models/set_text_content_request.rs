@@ -13,18 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SetTextContentRequest {
-    /// CSS selector for the element
-    #[serde(rename = "selector")]
-    pub selector: String,
+    /// Element fingerprint
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     /// Text content to set
     #[serde(rename = "text")]
     pub text: String,
 }
 
 impl SetTextContentRequest {
-    pub fn new(selector: String, text: String) -> SetTextContentRequest {
+    pub fn new(fingerprint: String, text: String) -> SetTextContentRequest {
         SetTextContentRequest {
-            selector,
+            fingerprint,
             text,
         }
     }

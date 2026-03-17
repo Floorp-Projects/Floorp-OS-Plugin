@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **i32** | Tab identifier | 
+**id** | **i64** | Tab identifier | 
 **url** | **String** | Tab URL | 
 **title** | **String** | Tab title | 
 **is_active** | **bool** | Whether the tab is currently active | 

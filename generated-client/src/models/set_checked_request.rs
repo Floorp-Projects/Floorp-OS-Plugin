@@ -13,16 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SetCheckedRequest {
-    #[serde(rename = "selector")]
-    pub selector: String,
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     #[serde(rename = "checked")]
     pub checked: bool,
 }
 
 impl SetCheckedRequest {
-    pub fn new(selector: String, checked: bool) -> SetCheckedRequest {
+    pub fn new(fingerprint: String, checked: bool) -> SetCheckedRequest {
         SetCheckedRequest {
-            selector,
+            fingerprint,
             checked,
         }
     }

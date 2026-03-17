@@ -22,6 +22,7 @@ docs/EnabledResponse.md
 docs/ErrorResponse.md
 docs/ExistsResponse.md
 docs/FillFormRequest.md
+docs/FingerprintRequest.md
 docs/FoundResponse.md
 docs/GetScraperElements200Response.md
 docs/GetTabElement200Response.md
@@ -37,7 +38,6 @@ docs/PressKeyRequest.md
 docs/Rect.md
 docs/RegionScreenshotRequest.md
 docs/SelectOptionRequest.md
-docs/SelectorRequest.md
 docs/SetCheckedRequest.md
 docs/SetInnerHtmlRequest.md
 docs/SetTextContentRequest.md
@@ -79,6 +79,7 @@ src/models/enabled_response.rs
 src/models/error_response.rs
 src/models/exists_response.rs
 src/models/fill_form_request.rs
+src/models/fingerprint_request.rs
 src/models/found_response.rs
 src/models/get_scraper_elements_200_response.rs
 src/models/get_tab_element_200_response.rs
@@ -95,7 +96,6 @@ src/models/press_key_request.rs
 src/models/rect.rs
 src/models/region_screenshot_request.rs
 src/models/select_option_request.rs
-src/models/selector_request.rs
 src/models/set_checked_request.rs
 src/models/set_inner_html_request.rs
 src/models/set_text_content_request.rs

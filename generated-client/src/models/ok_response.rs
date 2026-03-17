@@ -9,19 +9,11 @@
  */
 
 use crate::models;
-use serde::{Deserialize, Serialize, Deserializer};
-
-/// Deserialize null as false
-fn deserialize_bool_or_null<'de, D>(deserializer: D) -> Result<bool, D::Error>
-where
-    D: Deserializer<'de>,
-{
-    Option::<bool>::deserialize(deserializer).map(|opt| opt.unwrap_or(false))
-}
+use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OkResponse {
-    #[serde(rename = "ok", default, deserialize_with = "deserialize_bool_or_null")]
+    #[serde(rename = "ok")]
     pub ok: bool,
 }
 

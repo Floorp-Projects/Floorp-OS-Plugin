@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct FillFormRequest {
-    /// Map of CSS selectors to values
+    /// Map of element fingerprints to values
     #[serde(rename = "formData")]
     pub form_data: std::collections::HashMap<String, String>,
 }

@@ -13,18 +13,18 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WaitForElementRequest {
-    /// CSS selector to wait for
-    #[serde(rename = "selector")]
-    pub selector: String,
+    /// Element fingerprint to wait for
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     /// Timeout in milliseconds
     #[serde(rename = "timeout", skip_serializing_if = "Option::is_none")]
     pub timeout: Option<i32>,
 }
 
 impl WaitForElementRequest {
-    pub fn new(selector: String) -> WaitForElementRequest {
+    pub fn new(fingerprint: String) -> WaitForElementRequest {
         WaitForElementRequest {
-            selector,
+            fingerprint,
             timeout: None,
         }
     }

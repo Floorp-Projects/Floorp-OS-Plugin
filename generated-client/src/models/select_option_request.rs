@@ -13,16 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SelectOptionRequest {
-    #[serde(rename = "selector")]
-    pub selector: String,
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     #[serde(rename = "value")]
     pub value: String,
 }
 
 impl SelectOptionRequest {
-    pub fn new(selector: String, value: String) -> SelectOptionRequest {
+    pub fn new(fingerprint: String, value: String) -> SelectOptionRequest {
         SelectOptionRequest {
-            selector,
+            fingerprint,
             value,
         }
     }

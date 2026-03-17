@@ -13,9 +13,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct InputRequest {
-    /// CSS selector for the input element
-    #[serde(rename = "selector")]
-    pub selector: String,
+    /// Element fingerprint for the input element
+    #[serde(rename = "fingerprint")]
+    pub fingerprint: String,
     /// Value to type
     #[serde(rename = "value")]
     pub value: String,
@@ -28,9 +28,9 @@ pub struct InputRequest {
 }
 
 impl InputRequest {
-    pub fn new(selector: String, value: String) -> InputRequest {
+    pub fn new(fingerprint: String, value: String) -> InputRequest {
         InputRequest {
-            selector,
+            fingerprint,
             value,
             typing_mode: None,
             typing_delay_ms: None,

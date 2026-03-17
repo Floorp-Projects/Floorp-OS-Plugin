@@ -40,7 +40,7 @@ Method | HTTP request | Description
 [**get_scraper_cookies**](DefaultApi.md#get_scraper_cookies) | **GET** /scraper/instances/{id}/cookies | Get cookies
 [**get_scraper_element_by_text**](DefaultApi.md#get_scraper_element_by_text) | **GET** /scraper/instances/{id}/elementByText | Find first element containing text
 [**get_scraper_element_text**](DefaultApi.md#get_scraper_element_text) | **GET** /scraper/instances/{id}/elementText | Get text content of element
-[**get_scraper_element_text_content**](DefaultApi.md#get_scraper_element_text_content) | **GET** /scraper/instances/{id}/elementTextContent | Get trimmed text content for selector
+[**get_scraper_element_text_content**](DefaultApi.md#get_scraper_element_text_content) | **GET** /scraper/instances/{id}/elementTextContent | Get trimmed text content for fingerprint
 [**get_scraper_element_value**](DefaultApi.md#get_scraper_element_value) | **GET** /scraper/instances/{id}/value | Get value of form element
 [**get_scraper_elements**](DefaultApi.md#get_scraper_elements) | **GET** /scraper/instances/{id}/elements | Get all matching elements' outerHTML
 [**get_scraper_instance_html**](DefaultApi.md#get_scraper_instance_html) | **GET** /scraper/instances/{id}/html | Get HTML content of scraper instance
@@ -48,10 +48,10 @@ Method | HTTP request | Description
 [**get_scraper_title**](DefaultApi.md#get_scraper_title) | **GET** /scraper/instances/{id}/title | Get page title
 [**get_tab_attribute**](DefaultApi.md#get_tab_attribute) | **GET** /tabs/instances/{id}/attribute | Get element attribute
 [**get_tab_cookies**](DefaultApi.md#get_tab_cookies) | **GET** /tabs/instances/{id}/cookies | Get cookies
-[**get_tab_element**](DefaultApi.md#get_tab_element) | **GET** /tabs/instances/{id}/element | Get element HTML for selector in tab instance
+[**get_tab_element**](DefaultApi.md#get_tab_element) | **GET** /tabs/instances/{id}/element | Get element HTML for fingerprint in tab instance
 [**get_tab_element_by_text**](DefaultApi.md#get_tab_element_by_text) | **GET** /tabs/instances/{id}/elementByText | Find first element containing text in tab
 [**get_tab_element_text**](DefaultApi.md#get_tab_element_text) | **GET** /tabs/instances/{id}/elementText | Get text content of element in tab instance
-[**get_tab_element_text_content**](DefaultApi.md#get_tab_element_text_content) | **GET** /tabs/instances/{id}/elementTextContent | Get trimmed text content for selector in tab
+[**get_tab_element_text_content**](DefaultApi.md#get_tab_element_text_content) | **GET** /tabs/instances/{id}/elementTextContent | Get trimmed text content for fingerprint in tab
 [**get_tab_element_value**](DefaultApi.md#get_tab_element_value) | **GET** /tabs/instances/{id}/value | Get value of form element in tab instance
 [**get_tab_elements**](DefaultApi.md#get_tab_elements) | **GET** /tabs/instances/{id}/elements | Get all matching elements' outerHTML for tab
 [**get_tab_instance**](DefaultApi.md#get_tab_instance) | **GET** /tabs/instances/{id} | Get tab instance information
@@ -253,7 +253,7 @@ Name | Type | Description  | Required | Notes
 
 ## clear_scraper_input
 
-> models::OkResponse clear_scraper_input(id, selector_request)
+> models::OkResponse clear_scraper_input(id, fingerprint_request)
 Clear input field in scraper instance
 
 ### Parameters
@@ -262,7 +262,7 @@ Clear input field in scraper instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -282,7 +282,7 @@ Name | Type | Description  | Required | Notes
 
 ## clear_tab_input
 
-> models::OkResponse clear_tab_input(id, selector_request)
+> models::OkResponse clear_tab_input(id, fingerprint_request)
 Clear input field in tab instance
 
 ### Parameters
@@ -291,7 +291,7 @@ Clear input field in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Required | Notes
 
 ## click_scraper_element
 
-> models::OkResponse click_scraper_element(id, selector_request)
+> models::OkResponse click_scraper_element(id, fingerprint_request)
 Click an element in scraper instance
 
 ### Parameters
@@ -320,7 +320,7 @@ Click an element in scraper instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -340,7 +340,7 @@ Name | Type | Description  | Required | Notes
 
 ## click_tab_element
 
-> models::OkResponse click_tab_element(id, selector_request)
+> models::OkResponse click_tab_element(id, fingerprint_request)
 Click an element in tab instance
 
 ### Parameters
@@ -349,7 +349,7 @@ Click an element in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -620,7 +620,7 @@ Name | Type | Description  | Required | Notes
 
 ## double_click_scraper_element
 
-> models::OkResponse double_click_scraper_element(id, selector_request)
+> models::OkResponse double_click_scraper_element(id, fingerprint_request)
 Double click element
 
 ### Parameters
@@ -629,7 +629,7 @@ Double click element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -649,7 +649,7 @@ Name | Type | Description  | Required | Notes
 
 ## double_click_tab_element
 
-> models::OkResponse double_click_tab_element(id, selector_request)
+> models::OkResponse double_click_tab_element(id, fingerprint_request)
 Double click element
 
 ### Parameters
@@ -658,7 +658,7 @@ Double click element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -794,7 +794,7 @@ Name | Type | Description  | Required | Notes
 
 ## focus_scraper_element
 
-> models::OkResponse focus_scraper_element(id, selector_request)
+> models::OkResponse focus_scraper_element(id, fingerprint_request)
 Focus element
 
 ### Parameters
@@ -803,7 +803,7 @@ Focus element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -823,7 +823,7 @@ Name | Type | Description  | Required | Notes
 
 ## focus_tab_element
 
-> models::OkResponse focus_tab_element(id, selector_request)
+> models::OkResponse focus_tab_element(id, fingerprint_request)
 Focus element
 
 ### Parameters
@@ -832,7 +832,7 @@ Focus element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -1014,7 +1014,7 @@ This endpoint does not need any parameter.
 
 ## get_scraper_attribute
 
-> models::AttributeResponse get_scraper_attribute(id, selector, name)
+> models::AttributeResponse get_scraper_attribute(id, fingerprint, name)
 Get element attribute
 
 ### Parameters
@@ -1023,7 +1023,7 @@ Get element attribute
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 **name** | **String** |  | [required] |
 
 ### Return type
@@ -1101,7 +1101,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_scraper_element_text
 
-> models::TextResponse get_scraper_element_text(id, selector)
+> models::TextResponse get_scraper_element_text(id, fingerprint)
 Get text content of element
 
 ### Parameters
@@ -1110,7 +1110,7 @@ Get text content of element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the element | [required] |
+**fingerprint** | **String** | Element fingerprint | [required] |
 
 ### Return type
 
@@ -1130,8 +1130,8 @@ Name | Type | Description  | Required | Notes
 
 ## get_scraper_element_text_content
 
-> models::TextResponse get_scraper_element_text_content(id, selector)
-Get trimmed text content for selector
+> models::TextResponse get_scraper_element_text_content(id, fingerprint)
+Get trimmed text content for fingerprint
 
 ### Parameters
 
@@ -1139,7 +1139,7 @@ Get trimmed text content for selector
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1159,7 +1159,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_scraper_element_value
 
-> models::ValueResponse get_scraper_element_value(id, selector)
+> models::ValueResponse get_scraper_element_value(id, fingerprint)
 Get value of form element
 
 ### Parameters
@@ -1168,7 +1168,7 @@ Get value of form element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the form element | [required] |
+**fingerprint** | **String** | Element fingerprint for the form element | [required] |
 
 ### Return type
 
@@ -1188,7 +1188,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_scraper_elements
 
-> models::GetScraperElements200Response get_scraper_elements(id, selector)
+> models::GetScraperElements200Response get_scraper_elements(id, fingerprint)
 Get all matching elements' outerHTML
 
 ### Parameters
@@ -1197,7 +1197,7 @@ Get all matching elements' outerHTML
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1301,7 +1301,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tab_attribute
 
-> models::AttributeResponse get_tab_attribute(id, selector, name)
+> models::AttributeResponse get_tab_attribute(id, fingerprint, name)
 Get element attribute
 
 ### Parameters
@@ -1310,7 +1310,7 @@ Get element attribute
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 **name** | **String** |  | [required] |
 
 ### Return type
@@ -1359,8 +1359,8 @@ Name | Type | Description  | Required | Notes
 
 ## get_tab_element
 
-> models::GetTabElement200Response get_tab_element(id, selector)
-Get element HTML for selector in tab instance
+> models::GetTabElement200Response get_tab_element(id, fingerprint)
+Get element HTML for fingerprint in tab instance
 
 ### Parameters
 
@@ -1368,7 +1368,7 @@ Get element HTML for selector in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the element | [required] |
+**fingerprint** | **String** | Element fingerprint | [required] |
 
 ### Return type
 
@@ -1417,7 +1417,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tab_element_text
 
-> models::TextResponse get_tab_element_text(id, selector)
+> models::TextResponse get_tab_element_text(id, fingerprint)
 Get text content of element in tab instance
 
 ### Parameters
@@ -1426,7 +1426,7 @@ Get text content of element in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the element | [required] |
+**fingerprint** | **String** | Element fingerprint | [required] |
 
 ### Return type
 
@@ -1446,8 +1446,8 @@ Name | Type | Description  | Required | Notes
 
 ## get_tab_element_text_content
 
-> models::TextResponse get_tab_element_text_content(id, selector)
-Get trimmed text content for selector in tab
+> models::TextResponse get_tab_element_text_content(id, fingerprint)
+Get trimmed text content for fingerprint in tab
 
 ### Parameters
 
@@ -1455,7 +1455,7 @@ Get trimmed text content for selector in tab
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1475,7 +1475,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tab_element_value
 
-> models::ValueResponse get_tab_element_value(id, selector)
+> models::ValueResponse get_tab_element_value(id, fingerprint)
 Get value of form element in tab instance
 
 ### Parameters
@@ -1484,7 +1484,7 @@ Get value of form element in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the form element | [required] |
+**fingerprint** | **String** | Element fingerprint for the form element | [required] |
 
 ### Return type
 
@@ -1504,7 +1504,7 @@ Name | Type | Description  | Required | Notes
 
 ## get_tab_elements
 
-> models::GetScraperElements200Response get_tab_elements(id, selector)
+> models::GetScraperElements200Response get_tab_elements(id, fingerprint)
 Get all matching elements' outerHTML for tab
 
 ### Parameters
@@ -1513,7 +1513,7 @@ Get all matching elements' outerHTML for tab
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1645,7 +1645,7 @@ Name | Type | Description  | Required | Notes
 
 ## hover_scraper_element
 
-> models::OkResponse hover_scraper_element(id, selector_request)
+> models::OkResponse hover_scraper_element(id, fingerprint_request)
 Hover over element
 
 ### Parameters
@@ -1654,7 +1654,7 @@ Hover over element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -1674,7 +1674,7 @@ Name | Type | Description  | Required | Notes
 
 ## hover_tab_element
 
-> models::OkResponse hover_tab_element(id, selector_request)
+> models::OkResponse hover_tab_element(id, fingerprint_request)
 Hover over element
 
 ### Parameters
@@ -1683,7 +1683,7 @@ Hover over element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -1761,7 +1761,7 @@ Name | Type | Description  | Required | Notes
 
 ## is_scraper_enabled
 
-> models::EnabledResponse is_scraper_enabled(id, selector)
+> models::EnabledResponse is_scraper_enabled(id, fingerprint)
 Check if element is enabled
 
 ### Parameters
@@ -1770,7 +1770,7 @@ Check if element is enabled
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1790,7 +1790,7 @@ Name | Type | Description  | Required | Notes
 
 ## is_scraper_visible
 
-> models::VisibleResponse is_scraper_visible(id, selector)
+> models::VisibleResponse is_scraper_visible(id, fingerprint)
 Check if element is visible
 
 ### Parameters
@@ -1799,7 +1799,7 @@ Check if element is visible
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1819,7 +1819,7 @@ Name | Type | Description  | Required | Notes
 
 ## is_tab_enabled
 
-> models::EnabledResponse is_tab_enabled(id, selector)
+> models::EnabledResponse is_tab_enabled(id, fingerprint)
 Check if element is enabled
 
 ### Parameters
@@ -1828,7 +1828,7 @@ Check if element is enabled
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -1848,7 +1848,7 @@ Name | Type | Description  | Required | Notes
 
 ## is_tab_visible
 
-> models::VisibleResponse is_tab_visible(id, selector)
+> models::VisibleResponse is_tab_visible(id, fingerprint)
 Check if element is visible
 
 ### Parameters
@@ -1857,7 +1857,7 @@ Check if element is visible
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** |  | [required] |
+**fingerprint** | **String** |  | [required] |
 
 ### Return type
 
@@ -2045,7 +2045,7 @@ Name | Type | Description  | Required | Notes
 
 ## right_click_scraper_element
 
-> models::OkResponse right_click_scraper_element(id, selector_request)
+> models::OkResponse right_click_scraper_element(id, fingerprint_request)
 Right click element
 
 ### Parameters
@@ -2054,7 +2054,7 @@ Right click element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2074,7 +2074,7 @@ Name | Type | Description  | Required | Notes
 
 ## right_click_tab_element
 
-> models::OkResponse right_click_tab_element(id, selector_request)
+> models::OkResponse right_click_tab_element(id, fingerprint_request)
 Right click element
 
 ### Parameters
@@ -2083,7 +2083,7 @@ Right click element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2159,7 +2159,7 @@ Name | Type | Description  | Required | Notes
 
 ## scroll_to_scraper_element
 
-> models::OkResponse scroll_to_scraper_element(id, selector_request)
+> models::OkResponse scroll_to_scraper_element(id, fingerprint_request)
 Scroll to element
 
 ### Parameters
@@ -2168,7 +2168,7 @@ Scroll to element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2188,7 +2188,7 @@ Name | Type | Description  | Required | Notes
 
 ## scroll_to_tab_element
 
-> models::OkResponse scroll_to_tab_element(id, selector_request)
+> models::OkResponse scroll_to_tab_element(id, fingerprint_request)
 Scroll to element
 
 ### Parameters
@@ -2197,7 +2197,7 @@ Scroll to element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2507,7 +2507,7 @@ Name | Type | Description  | Required | Notes
 
 ## submit_scraper_form
 
-> models::OkResponse submit_scraper_form(id, selector_request)
+> models::OkResponse submit_scraper_form(id, fingerprint_request)
 Submit form in scraper instance
 
 ### Parameters
@@ -2516,7 +2516,7 @@ Submit form in scraper instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2536,7 +2536,7 @@ Name | Type | Description  | Required | Notes
 
 ## submit_tab_form
 
-> models::OkResponse submit_tab_form(id, selector_request)
+> models::OkResponse submit_tab_form(id, fingerprint_request)
 Submit form in tab instance
 
 ### Parameters
@@ -2545,7 +2545,7 @@ Submit form in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector_request** | [**SelectorRequest**](SelectorRequest.md) |  | [required] |
+**fingerprint_request** | [**FingerprintRequest**](FingerprintRequest.md) |  | [required] |
 
 ### Return type
 
@@ -2676,7 +2676,7 @@ Name | Type | Description  | Required | Notes
 
 ## take_scraper_element_screenshot
 
-> models::ImageResponse take_scraper_element_screenshot(id, selector)
+> models::ImageResponse take_scraper_element_screenshot(id, fingerprint)
 Take screenshot of specific element
 
 ### Parameters
@@ -2685,7 +2685,7 @@ Take screenshot of specific element
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the element | [required] |
+**fingerprint** | **String** | Element fingerprint | [required] |
 
 ### Return type
 
@@ -2790,7 +2790,7 @@ Name | Type | Description  | Required | Notes
 
 ## take_tab_element_screenshot
 
-> models::ImageResponse take_tab_element_screenshot(id, selector)
+> models::ImageResponse take_tab_element_screenshot(id, fingerprint)
 Take screenshot of a specific element in tab instance
 
 ### Parameters
@@ -2799,7 +2799,7 @@ Take screenshot of a specific element in tab instance
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
 **id** | **String** | Instance identifier | [required] |
-**selector** | **String** | CSS selector for the element | [required] |
+**fingerprint** | **String** | Element fingerprint | [required] |
 
 ### Return type
 
