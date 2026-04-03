@@ -1,4 +1,4 @@
-// @ts-nocheck @reason
+// @ts-expect-error - Deno runtime glue with no TS declarations
 // JavaScript glue exposing Floorp OS API operations to workflows
 function floorpHealth() {
   return Deno.core.ops.op_floorp_health();
@@ -26,7 +26,7 @@ function floorpInput(id, fingerprint, value) {
   return Deno.core.ops.op_floorp_input(id, fingerprint, value);
 }
 function floorpTabInput(id, fingerprint, value, typingMode) {
-  var result = Deno.core.ops.op_floorp_tab_input(
+  const result = Deno.core.ops.op_floorp_tab_input(
     id,
     fingerprint,
     value,
@@ -34,9 +34,9 @@ function floorpTabInput(id, fingerprint, value, typingMode) {
   );
   // Parse result and convert null to false for consistency
   try {
-    var parsed = JSON.parse(result);
+    const parsed = JSON.parse(result);
     return parsed.ok === true ? "true" : "false";
-  } catch (e) {
+  } catch (_e) {
     return "false";
   }
 }
@@ -108,15 +108,15 @@ function floorpRegionScreenshot(id, x, y, w, h) {
   );
 }
 function floorpCreateTab(url, inBackground) {
-  var result = Deno.core.ops.op_floorp_create_tab_instance(
+  const result = Deno.core.ops.op_floorp_create_tab_instance(
     url,
     inBackground?.toString(),
   );
   // Parse JSON and return instanceId directly for consistency
   try {
-    var parsed = JSON.parse(result);
+    const parsed = JSON.parse(result);
     return parsed.instanceId || result;
-  } catch (e) {
+  } catch (_e) {
     return result;
   }
 }
@@ -139,26 +139,26 @@ function floorpTabElementText(id, fingerprint) {
   return Deno.core.ops.op_floorp_tab_element_text(id, fingerprint);
 }
 function floorpTabClick(id, fingerprint) {
-  var result = Deno.core.ops.op_floorp_tab_click_element(id, fingerprint);
+  const result = Deno.core.ops.op_floorp_tab_click_element(id, fingerprint);
   // Parse result and convert null to false for consistency
   try {
-    var parsed = JSON.parse(result);
+    const parsed = JSON.parse(result);
     return parsed.ok === true ? "true" : "false";
-  } catch (e) {
+  } catch (_e) {
     return "false";
   }
 }
 function floorpTabWaitForElement(id, fingerprint, timeoutMs) {
-  var result = Deno.core.ops.op_floorp_tab_wait_for_element(
+  const result = Deno.core.ops.op_floorp_tab_wait_for_element(
     id,
     fingerprint,
     timeoutMs?.toString(),
   );
   // Parse result and convert null to false for consistency
   try {
-    var parsed = JSON.parse(result);
+    const parsed = JSON.parse(result);
     return parsed.ok === true || parsed.found === true ? "true" : "false";
-  } catch (e) {
+  } catch (_e) {
     return "false";
   }
 }
@@ -217,12 +217,12 @@ function floorpBrowserContext(historyLimit, downloadLimit) {
   );
 }
 function floorpAttachToTab(browserId) {
-  var result = Deno.core.ops.op_floorp_attach_to_tab(browserId);
+  const result = Deno.core.ops.op_floorp_attach_to_tab(browserId);
   // Parse JSON and return instanceId directly for consistency
   try {
-    var parsed = JSON.parse(result);
+    const parsed = JSON.parse(result);
     return parsed.instanceId || null;
-  } catch (e) {
+  } catch (_e) {
     return null;
   }
 }
@@ -360,15 +360,15 @@ function floorpTabPdf(id) {
   return Deno.core.ops.op_floorp_tab_pdf(id);
 }
 function floorpTabWaitForNetworkIdle(id, timeoutMs) {
-  var result = Deno.core.ops.op_floorp_tab_wait_for_network_idle(
+  const result = Deno.core.ops.op_floorp_tab_wait_for_network_idle(
     id,
     timeoutMs?.toString(),
   );
   // Parse result and convert null to false for consistency
   try {
-    var parsed = JSON.parse(result);
+    const parsed = JSON.parse(result);
     return parsed.ok === true ? "true" : "false";
-  } catch (e) {
+  } catch (_e) {
     return "false";
   }
 }
@@ -492,8 +492,4 @@ globalThis.floorp = {
   tabPressKey: floorpTabPressKey,
   uploadFile: floorpUploadFile,
   tabUploadFile: floorpTabUploadFile,
-  // Screenshot functions
-  tabElementScreenshot: floorpTabElementScreenshot,
-  tabFullPageScreenshot: floorpTabFullPageScreenshot,
-  tabRegionScreenshot: floorpTabRegionScreenshot,
 };
